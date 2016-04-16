@@ -216,6 +216,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 if (m_IsGrounded)
                 {
                     Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
+                    Vector3 additiveV = Vector3.zero;
+                    additiveV.z = m_Animator.GetFloat("forward");
+                    additiveV.x = m_Animator.GetFloat("right");
+                    v += m_Animator.transform.rotation * additiveV;
 
                     // we preserve the existing y part of the current velocity.
                     v.y = m_Rigidbody.velocity.y;

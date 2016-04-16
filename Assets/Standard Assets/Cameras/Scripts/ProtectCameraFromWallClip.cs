@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Cameras
 {
@@ -13,7 +14,9 @@ namespace UnityStandardAssets.Cameras
         public float closestDistance = 0.5f;            // the closest distance the camera can be from the target
         public bool protecting { get; private set; }    // used for determining if there is an object between the target and the camera
         public LayerMask rayCastMask;
-        //public string dontClipTag = "Player";           // don't clip against objects with this tag (useful for not clipping against the targeted object)
+        public Vector2 distanceModificationRange = new Vector2(-1f, 4f);
+        public float scrollModifierStrength = 1f;
+        public float scrollSmooth = 1f;
 
         private Camera[] m_Cam;                  // the transform of the camera
         private Transform m_Pivot;                // the point at which the camera pivots around
@@ -23,7 +26,16 @@ namespace UnityStandardAssets.Cameras
         private Ray m_Ray;                        // the ray used in the lateupdate for casting between the camera and the target
         private RaycastHit[] m_Hits;              // the hits between the camera and the target
         private RayHitComparer m_RayHitComparer;  // variable to compare raycast hit distances
+        private float m_DistanceModifier = 0f;
+        private float m_TargetDistanceModifier = 0f;
 
+        private float ControlledDistance
+        {
+            get
+            {
+                return m_OriginalDist + m_DistanceModifier;
+            }
+        }
 
         private void Start()
         {
@@ -37,11 +49,13 @@ namespace UnityStandardAssets.Cameras
             m_RayHitComparer = new RayHitComparer();
         }
 
-
         private void LateUpdate()
         {
+            m_TargetDistanceModifier = Mathf.Clamp((m_TargetDistanceModifier - (CrossPlatformInputManager.GetAxis("Mouse ScrollWheel") * scrollModifierStrength)), distanceModificationRange.x, distanceModificationRange.y);
+            m_DistanceModifier = Mathf.Lerp(m_DistanceModifier, m_TargetDistanceModifier, scrollSmooth * Time.deltaTime);
+
             // initially set the target distance
-            float targetDist = m_OriginalDist;
+            float targetDist = ControlledDistance;
 
             m_Ray.origin = m_Pivot.position + m_Pivot.forward*sphereCastRadius;
             m_Ray.direction = -m_Pivot.forward;
@@ -68,12 +82,12 @@ namespace UnityStandardAssets.Cameras
                 m_Ray.origin += m_Pivot.forward*sphereCastRadius;
 
                 // do a raycast and gather all the intersections
-                m_Hits = Physics.RaycastAll(m_Ray, m_OriginalDist - sphereCastRadius, rayCastMask);
+                m_Hits = Physics.RaycastAll(m_Ray, ControlledDistance - sphereCastRadius, rayCastMask);
             }
             else
             {
                 // if there was no collision do a sphere cast to see if there were any other collisions
-                m_Hits = Physics.SphereCastAll(m_Ray, sphereCastRadius, m_OriginalDist + sphereCastRadius, rayCastMask);
+                m_Hits = Physics.SphereCastAll(m_Ray, sphereCastRadius, ControlledDistance + sphereCastRadius, rayCastMask);
             }
 
             // sort the collisions by distance
@@ -105,7 +119,7 @@ namespace UnityStandardAssets.Cameras
             protecting = hitSomething;
             m_CurrentDist = Mathf.SmoothDamp(m_CurrentDist, targetDist, ref m_MoveVelocity,
                                            m_CurrentDist > targetDist ? clipMoveTime : returnTime);
-            m_CurrentDist = Mathf.Clamp(m_CurrentDist, closestDistance, m_OriginalDist);
+            m_CurrentDist = Mathf.Clamp(m_CurrentDist, closestDistance, ControlledDistance);
             foreach(Camera camera in m_Cam)
             {
                 camera.transform.localPosition = -Vector3.forward * m_CurrentDist;

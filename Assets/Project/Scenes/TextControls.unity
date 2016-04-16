@@ -781,7 +781,10 @@ MonoBehaviour:
   closestDistance: 0.5
   rayCastMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4097
+  distanceModificationRange: {x: -1, y: 4}
+  scrollModifierStrength: 5
+  scrollSmooth: 10
 --- !u!114 &744795327
 MonoBehaviour:
   m_ObjectHideFlags: 0
