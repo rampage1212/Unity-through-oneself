@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 412090}
   - 20: {fileID: 2045644}
+  - 114: {fileID: 11432014}
   m_Layer: 0
   m_Name: Masking Camera
   m_TagString: Untagged
@@ -43,6 +44,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 422398}
   - 20: {fileID: 2046914}
+  - 114: {fileID: 11404294}
   m_Layer: 0
   m_Name: Inside Character Camera
   m_TagString: Untagged
@@ -157,7 +159,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.62552905, g: 0.684092, b: 0.7761194, a: 0.019607844}
+  m_BackGroundColor: {r: 0.15862083, g: 0, b: 1, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -208,7 +210,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 256
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: a7419157ee96229479f0814449e5ee9f, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -224,8 +226,8 @@ Camera:
   m_GameObject: {fileID: 187262}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.15862083, g: 0, b: 1, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -237,12 +239,12 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 100
-  m_Depth: 0
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294966015
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: c17a3328e9268824a8c03eaee7241de7, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -279,6 +281,30 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195740}
   m_Enabled: 1
+--- !u!114 &11404294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 187262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf21511a8104d6a4ea396e77e9335a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replaceTextureWith: 1
+--- !u!114 &11432014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf21511a8104d6a4ea396e77e9335a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replaceTextureWith: 0
 --- !u!114 &11481354
 MonoBehaviour:
   m_ObjectHideFlags: 1
