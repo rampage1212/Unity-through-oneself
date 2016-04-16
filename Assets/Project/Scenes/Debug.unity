@@ -184,7 +184,7 @@ GameObject:
   - 23: {fileID: 72433335}
   - 111: {fileID: 72433334}
   - 114: {fileID: 72433333}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,7 +529,7 @@ GameObject:
   - 23: {fileID: 185082049}
   - 111: {fileID: 185082048}
   - 114: {fileID: 185082047}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -740,7 +740,7 @@ GameObject:
   - 23: {fileID: 313640983}
   - 111: {fileID: 313640982}
   - 114: {fileID: 313640981}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1424,7 +1424,7 @@ GameObject:
   - 23: {fileID: 1012244098}
   - 111: {fileID: 1012244097}
   - 114: {fileID: 1012244096}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2151,7 +2151,7 @@ GameObject:
   - 23: {fileID: 1438040085}
   - 111: {fileID: 1438040084}
   - 114: {fileID: 1438040083}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2420,7 +2420,7 @@ GameObject:
   - 23: {fileID: 1716612278}
   - 111: {fileID: 1716612277}
   - 114: {fileID: 1716612276}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2692,18 +2692,6 @@ Prefab:
       propertyPath: m_Target
       value: 
       objectReference: {fileID: 235146096}
-    - target: {fileID: 2045644, guid: 31fe59a7e888bde4eb7b46551eee77db, type: 2}
-      propertyPath: m_BackGroundColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2045644, guid: 31fe59a7e888bde4eb7b46551eee77db, type: 2}
-      propertyPath: m_CullingMask.m_Bits
-      value: 2304
-      objectReference: {fileID: 0}
-    - target: {fileID: 2046914, guid: 31fe59a7e888bde4eb7b46551eee77db, type: 2}
-      propertyPath: m_CullingMask.m_Bits
-      value: 4294963967
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31fe59a7e888bde4eb7b46551eee77db, type: 2}
   m_IsPrefabParent: 0

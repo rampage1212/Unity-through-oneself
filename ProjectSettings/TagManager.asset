@@ -16,8 +16,8 @@ TagManager:
   - Masking Only
   - Inside Characters Only
   - Outside Characters Only
-  - 
-  - 
+  - Inside Characters Collidable
+  - Outside Characters Collidable
   - 
   - 
   - 
