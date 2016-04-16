@@ -660,7 +660,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3681543e5b0f59742b73073cb379cdc6, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3681543e5b0f59742b73073cb379cdc6, type: 2}
@@ -2384,26 +2384,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 426516, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.53267515
-      objectReference: {fileID: 0}
-    - target: {fileID: 426516, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0.07034045
-      objectReference: {fileID: 0}
-    - target: {fileID: 426516, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0.83613265
-      objectReference: {fileID: 0}
-    - target: {fileID: 426516, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: -0.11041513
-      objectReference: {fileID: 0}
     - target: {fileID: 196930, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
       propertyPath: m_Name
       value: ThirdPersonController
       objectReference: {fileID: 0}
+    - target: {fileID: 9509252, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b8ca2e22caa6bcc42b955522a9b07282, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
   m_IsPrefabParent: 0
@@ -2578,7 +2566,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 492372, guid: e6de9bbfd0f4a40efae8b92c0481a228, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11491956, guid: e6de9bbfd0f4a40efae8b92c0481a228, type: 2}
       propertyPath: backgroundMusic
@@ -2686,7 +2674,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 481456, guid: 31fe59a7e888bde4eb7b46551eee77db, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 11499074, guid: 31fe59a7e888bde4eb7b46551eee77db, type: 2}
       propertyPath: m_Target
