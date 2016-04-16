@@ -12,9 +12,10 @@ namespace UnityStandardAssets.Cameras
         public bool visualiseInEditor;                  // toggle for visualising the algorithm through lines for the raycast in the editor
         public float closestDistance = 0.5f;            // the closest distance the camera can be from the target
         public bool protecting { get; private set; }    // used for determining if there is an object between the target and the camera
-        public string dontClipTag = "Player";           // don't clip against objects with this tag (useful for not clipping against the targeted object)
+        public LayerMask rayCastMask;
+        //public string dontClipTag = "Player";           // don't clip against objects with this tag (useful for not clipping against the targeted object)
 
-        private Transform m_Cam;                  // the transform of the camera
+        private Camera[] m_Cam;                  // the transform of the camera
         private Transform m_Pivot;                // the point at which the camera pivots around
         private float m_OriginalDist;             // the original distance to the camera before any modification are made
         private float m_MoveVelocity;             // the velocity at which the camera moved
@@ -27,9 +28,9 @@ namespace UnityStandardAssets.Cameras
         private void Start()
         {
             // find the camera in the object hierarchy
-            m_Cam = GetComponentInChildren<Camera>().transform;
-            m_Pivot = m_Cam.parent;
-            m_OriginalDist = m_Cam.localPosition.magnitude;
+            m_Cam = GetComponentsInChildren<Camera>();
+            m_Pivot = m_Cam[0].transform.parent;
+            m_OriginalDist = m_Cam[0].transform.localPosition.magnitude;
             m_CurrentDist = m_OriginalDist;
 
             // create a new RayHitComparer
@@ -46,7 +47,7 @@ namespace UnityStandardAssets.Cameras
             m_Ray.direction = -m_Pivot.forward;
 
             // initial check to see if start of spherecast intersects anything
-            var cols = Physics.OverlapSphere(m_Ray.origin, sphereCastRadius);
+            var cols = Physics.OverlapSphere(m_Ray.origin, sphereCastRadius, rayCastMask);
 
             bool initialIntersect = false;
             bool hitSomething = false;
@@ -54,8 +55,7 @@ namespace UnityStandardAssets.Cameras
             // loop through all the collisions to check if something we care about
             for (int i = 0; i < cols.Length; i++)
             {
-                if ((!cols[i].isTrigger) &&
-                    !(cols[i].attachedRigidbody != null && cols[i].attachedRigidbody.CompareTag(dontClipTag)))
+                if (cols[i].isTrigger == false)
                 {
                     initialIntersect = true;
                     break;
@@ -68,12 +68,12 @@ namespace UnityStandardAssets.Cameras
                 m_Ray.origin += m_Pivot.forward*sphereCastRadius;
 
                 // do a raycast and gather all the intersections
-                m_Hits = Physics.RaycastAll(m_Ray, m_OriginalDist - sphereCastRadius);
+                m_Hits = Physics.RaycastAll(m_Ray, m_OriginalDist - sphereCastRadius, rayCastMask);
             }
             else
             {
                 // if there was no collision do a sphere cast to see if there were any other collisions
-                m_Hits = Physics.SphereCastAll(m_Ray, sphereCastRadius, m_OriginalDist + sphereCastRadius);
+                m_Hits = Physics.SphereCastAll(m_Ray, sphereCastRadius, m_OriginalDist + sphereCastRadius, rayCastMask);
             }
 
             // sort the collisions by distance
@@ -86,9 +86,7 @@ namespace UnityStandardAssets.Cameras
             for (int i = 0; i < m_Hits.Length; i++)
             {
                 // only deal with the collision if it was closer than the previous one, not a trigger, and not attached to a rigidbody tagged with the dontClipTag
-                if (m_Hits[i].distance < nearest && (!m_Hits[i].collider.isTrigger) &&
-                    !(m_Hits[i].collider.attachedRigidbody != null &&
-                      m_Hits[i].collider.attachedRigidbody.CompareTag(dontClipTag)))
+                if (m_Hits[i].distance < nearest && (!m_Hits[i].collider.isTrigger))
                 {
                     // change the nearest collision to latest
                     nearest = m_Hits[i].distance;
@@ -108,7 +106,10 @@ namespace UnityStandardAssets.Cameras
             m_CurrentDist = Mathf.SmoothDamp(m_CurrentDist, targetDist, ref m_MoveVelocity,
                                            m_CurrentDist > targetDist ? clipMoveTime : returnTime);
             m_CurrentDist = Mathf.Clamp(m_CurrentDist, closestDistance, m_OriginalDist);
-            m_Cam.localPosition = -Vector3.forward*m_CurrentDist;
+            foreach(Camera camera in m_Cam)
+            {
+                camera.transform.localPosition = -Vector3.forward * m_CurrentDist;
+            }
         }
 
 
