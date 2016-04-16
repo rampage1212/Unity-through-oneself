@@ -46,20 +46,21 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		}
 
 
-		public void Move(Vector3 move, bool crouch, bool jump)
+		public void Move(Vector3 originalMove, bool crouch, bool jump)
 		{
             // convert the world relative moveInput vector into a local-relative
             // turn amount and forward amount required to head in the desired
             // direction.
-            if (move.magnitude > 1f)
+            Vector3 processedMove = originalMove;
+            if (processedMove.sqrMagnitude > 1f)
             {
-                move.Normalize();
+                processedMove.Normalize();
             }
-			move = transform.InverseTransformDirection(move);
+			processedMove = transform.InverseTransformDirection(processedMove);
 			CheckGroundStatus();
-			move = Vector3.ProjectOnPlane(move, m_GroundNormal);
-			m_TurnAmount = Mathf.Atan2(move.x, move.z);
-			m_ForwardAmount = move.z;
+			processedMove = Vector3.ProjectOnPlane(processedMove, m_GroundNormal);
+			m_TurnAmount = Mathf.Atan2(processedMove.x, processedMove.z);
+			m_ForwardAmount = processedMove.z;
 
             ApplyExtraTurnRotation();
 
@@ -77,20 +78,23 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			PreventStandingInLowHeadroom();
 
 			// send input and other state parameters to the animator
-			UpdateAnimator(move);
+			UpdateAnimator(processedMove);
 
             // Apply aerial controls
             if ((m_IsGrounded == false) && (m_AerialControlInfluence > 0))
             {
-                Vector3 v = move;
-                if(v.sqrMagnitude > 0)
+                if (originalMove.sqrMagnitude > 0)
                 {
-                    v = (v * m_AerialControlInfluence) / Time.deltaTime;
+                    if (originalMove.sqrMagnitude > 1f)
+                    {
+                        originalMove.Normalize();
+                    }
+                    originalMove = (originalMove * m_AerialControlInfluence) / Time.deltaTime;
                 }
-                v.y = 0;
+                originalMove.y = 0;
 
                 // Add as force
-                m_Rigidbody.AddForce(v, ForceMode.Acceleration);
+                m_Rigidbody.AddForce(originalMove, ForceMode.Acceleration);
             }
         }
 
