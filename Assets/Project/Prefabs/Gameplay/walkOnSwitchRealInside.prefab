@@ -836,6 +836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfPeopleToActivate: 1
+  groupName: 
   pressedParticles: {fileID: 19889956}
   label: {fileID: 11417418}
   line: {fileID: 11476854}
@@ -922,8 +923,8 @@ MonoBehaviour:
   allPoints:
   - {fileID: 401518}
   - {fileID: 419884}
-  - {fileID: 454670}
   - {fileID: 413516}
+  - {fileID: 454670}
   - {fileID: 447076}
   - {fileID: 405058}
   - {fileID: 412792}
