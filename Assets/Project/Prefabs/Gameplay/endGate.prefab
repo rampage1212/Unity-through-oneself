@@ -43,6 +43,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 467834}
   - 65: {fileID: 6531850}
+  - 114: {fileID: 11472012}
   m_Layer: 11
   m_Name: Trigger
   m_TagString: Untagged
@@ -305,8 +306,8 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127160}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8841083aa05d4ba4093591a9525a5935, type: 3}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0608ad789cf717648b0ecd970a83c097, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -422,6 +423,17 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 2.5, y: -2.5}
   m_UseGraphicAlpha: 1
+--- !u!114 &11472012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3277084a69507444a245baa63a3ba58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11481876
 MonoBehaviour:
   m_ObjectHideFlags: 1
