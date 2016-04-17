@@ -61,4 +61,4 @@ Desktop.ini
 # ====== #
 Builds/
 Assets/.~lock.*
-UnimportedAssets/walkOnSwitch.blend1
+*.blend1
