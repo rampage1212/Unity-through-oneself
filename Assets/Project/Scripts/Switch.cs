@@ -14,6 +14,8 @@ public class Switch : MonoBehaviour
     const string StateField = "state";
     const string LabelField = "showNumber";
 
+    public event System.Action<Switch, State> OnAfterStateChanged;
+
     [Header("Switch Properties")]
     [SerializeField]
     int numberOfPeopleToActivate = 1;
@@ -71,6 +73,10 @@ public class Switch : MonoBehaviour
                 if(currentState == State.Up)
                 {
                     upSound.Play();
+                }
+                if (OnAfterStateChanged != null)
+                {
+                    OnAfterStateChanged(this, currentState);
                 }
             }
         }
