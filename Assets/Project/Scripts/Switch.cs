@@ -17,6 +17,8 @@ public class Switch : MonoBehaviour
     [Header("Switch Properties")]
     [SerializeField]
     int numberOfPeopleToActivate = 1;
+    [SerializeField]
+    string groupName = "";
 
     [Header("Components")]
     [SerializeField]
@@ -31,6 +33,7 @@ public class Switch : MonoBehaviour
     OmiyaGames.SoundEffect upSound = null;
 
     static readonly System.Text.StringBuilder builder = new System.Text.StringBuilder();
+    static readonly Dictionary<string, HashSet<Switch>> groupedSwitches = new Dictionary<string, HashSet<Switch>>();
     readonly HashSet<Collider> currentPeople = new HashSet<Collider>();
     Animator animatorCache = null;
     State currentState = State.Up;
@@ -116,7 +119,7 @@ public class Switch : MonoBehaviour
         return returnFlag;
     }
 
-    public void ForceStateToUp()
+    void ForceStateToUp()
     {
         CurrentState = State.Up;
         UpdateState();
@@ -127,6 +130,20 @@ public class Switch : MonoBehaviour
         if (currentPeople.Count >= numberOfPeopleToActivate)
         {
             CurrentState = State.Pressed;
+            if(string.IsNullOrEmpty(groupName) == false)
+            {
+                HashSet<Switch> group;
+                if (groupedSwitches.TryGetValue(groupName, out group) == true)
+                {
+                    foreach(Switch radioSwitch in group)
+                    {
+                        if(radioSwitch != this)
+                        {
+                            radioSwitch.ForceStateToUp();
+                        }
+                    }
+                }
+            }
         }
         else if (CurrentState != State.Pressed)
         {
@@ -154,6 +171,35 @@ public class Switch : MonoBehaviour
         else
         {
             IsLabelVisible = false;
+        }
+    }
+
+    void Start()
+    {
+        if(string.IsNullOrEmpty(groupName) == false)
+        {
+            // Grab group from the dictionary
+            HashSet<Switch> group;
+            if(groupedSwitches.TryGetValue(groupName, out group) == false)
+            {
+                // Add a new entry to the dictionary
+                group = new HashSet<Switch>();
+                groupedSwitches.Add(groupName, group);
+            }
+
+            // Add this switch into the list
+            if(group.Contains(this) == false)
+            {
+                group.Add(this);
+            }
+        }
+    }
+
+    void OnDestroy()
+    {
+        if(groupedSwitches.Count > 0)
+        {
+            groupedSwitches.Clear();
         }
     }
 }

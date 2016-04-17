@@ -8,10 +8,10 @@ public class MoveToTargetCharacterControl : MonoBehaviour
     public ThirdPersonCharacter character { get; private set; } // the character we are controlling
     [SerializeField]
     Transform target;                                    // target to aim for
-    [SerializeField]
-    float maxMoveVelocity = 2f;
-    [SerializeField]
-    float acceleration = 2f;
+    //[SerializeField]
+    //float maxMoveVelocity = 2f;
+    //[SerializeField]
+    //float acceleration = 2f;
     [SerializeField]
     float stopRange = 0.2f;
 

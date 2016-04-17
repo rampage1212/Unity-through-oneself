@@ -999,6 +999,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfPeopleToActivate: 1
+  groupName: defaultGroup
   pressedParticles: {fileID: 19866864}
   label: {fileID: 11439270}
   line: {fileID: 11474830}

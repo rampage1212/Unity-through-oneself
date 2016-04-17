@@ -893,6 +893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfPeopleToActivate: 1
+  groupName: defaultGroup
   pressedParticles: {fileID: 19878730}
   label: {fileID: 11402890}
   line: {fileID: 11414048}
