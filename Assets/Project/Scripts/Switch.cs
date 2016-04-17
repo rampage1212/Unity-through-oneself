@@ -17,14 +17,14 @@ public class Switch : MonoBehaviour
     [Header("Switch Properties")]
     [SerializeField]
     int numberOfPeopleToActivate = 1;
-    [SerializeField]
-    bool activateOnce = true;
 
     [Header("Components")]
     [SerializeField]
     ParticleSystem pressedParticles = null;
     [SerializeField]
     UnityEngine.UI.Text label = null;
+    [SerializeField]
+    SwitchLine line = null;
 
     static readonly System.Text.StringBuilder builder = new System.Text.StringBuilder();
     readonly HashSet<Collider> currentPeople = new HashSet<Collider>();
@@ -59,6 +59,7 @@ public class Switch : MonoBehaviour
                 if(currentState != State.Pressed)
                 {
                     pressedParticles.Stop();
+                    line.IsOn = false;
                 }
             }
         }
@@ -79,6 +80,7 @@ public class Switch : MonoBehaviour
     public void TriggerParticles()
     {
         pressedParticles.Play();
+        line.IsOn = true;
     }
 
     public bool AddPerson(Collider person)
@@ -105,13 +107,19 @@ public class Switch : MonoBehaviour
         return returnFlag;
     }
 
+    public void ForceStateToUp()
+    {
+        CurrentState = State.Up;
+        UpdateState();
+    }
+
     void UpdateState()
     {
         if (currentPeople.Count >= numberOfPeopleToActivate)
         {
             CurrentState = State.Pressed;
         }
-        else if ((CurrentState != State.Pressed) || (activateOnce == false))
+        else if (CurrentState != State.Pressed)
         {
             if (currentPeople.Count > 0)
             {
@@ -122,7 +130,6 @@ public class Switch : MonoBehaviour
                 CurrentState = State.Up;
             }
         }
-        Debug.Log("Num people: " + currentPeople.Count);
 
         // Build String
         builder.Length = 0;
@@ -131,17 +138,13 @@ public class Switch : MonoBehaviour
         builder.Append(numberOfPeopleToActivate);
         label.text = builder.ToString();
 
-        if (CurrentState == State.Up)
+        if (CurrentState == State.Midway)
         {
-            IsLabelVisible = false;
-        }
-        else if((CurrentState == State.Pressed) && (activateOnce == true))
-        {
-            IsLabelVisible = false;
+            IsLabelVisible = true;
         }
         else
         {
-            IsLabelVisible = true;
+            IsLabelVisible = false;
         }
     }
 }

@@ -808,17 +808,9 @@ MonoBehaviour:
     cursorMode: 0
     revertTimeScale: 1
   levels:
-  - scenePath: Assets/Project/Scenes/Level 1.unity
+  - scenePath: Assets/Project/Scenes/Debug.unity
     displayName: Level 1
-    cursorMode: 0
-    revertTimeScale: 1
-  - scenePath: Assets/Project/Scenes/Level 2.unity
-    displayName: Level 2
-    cursorMode: 0
-    revertTimeScale: 1
-  - scenePath: Assets/Project/Scenes/Level 3.unity
-    displayName: Level 3
-    cursorMode: 0
+    cursorMode: 1
     revertTimeScale: 1
 --- !u!114 &11428920
 MonoBehaviour:
