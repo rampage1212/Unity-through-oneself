@@ -15,8 +15,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		[SerializeField] float m_MoveSpeedMultiplier = 1f;
 		[SerializeField] float m_AnimSpeedMultiplier = 1f;
 		[SerializeField] float m_GroundCheckDistance = 0.1f;
+        [SerializeField] float m_AerialControlInfluence = 0f;
+        [Header("Walk Particles")]
         [SerializeField]
-        float m_AerialControlInfluence = 0f;
+        ParticleSystem m_walkingParticles = null;
+        [SerializeField]
+        float m_MoveThreshold = 0.1f;
 
         Rigidbody m_Rigidbody;
 		Animator m_Animator;
@@ -47,7 +51,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 
 		public void Move(Vector3 originalMove, bool crouch, bool jump)
-		{
+        {
             // convert the world relative moveInput vector into a local-relative
             // turn amount and forward amount required to head in the desired
             // direction.
@@ -56,31 +60,37 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             {
                 processedMove.Normalize();
             }
-			processedMove = transform.InverseTransformDirection(processedMove);
-			CheckGroundStatus();
-			processedMove = Vector3.ProjectOnPlane(processedMove, m_GroundNormal);
-			m_TurnAmount = Mathf.Atan2(processedMove.x, processedMove.z);
-			m_ForwardAmount = processedMove.z;
+            processedMove = transform.InverseTransformDirection(processedMove);
+            CheckGroundStatus();
+            processedMove = Vector3.ProjectOnPlane(processedMove, m_GroundNormal);
+            m_TurnAmount = Mathf.Atan2(processedMove.x, processedMove.z);
+            m_ForwardAmount = processedMove.z;
 
             ApplyExtraTurnRotation();
 
-			// control and velocity handling is different when grounded and airborne:
-			if (m_IsGrounded)
-			{
-				HandleGroundedMovement(crouch, jump);
-			}
-			else
-			{
-				HandleAirborneMovement();
-			}
+            // control and velocity handling is different when grounded and airborne:
+            if (m_IsGrounded)
+            {
+                HandleGroundedMovement(crouch, jump);
+            }
+            else
+            {
+                HandleAirborneMovement();
+            }
 
-			ScaleCapsuleForCrouching(crouch);
-			PreventStandingInLowHeadroom();
+            ScaleCapsuleForCrouching(crouch);
+            PreventStandingInLowHeadroom();
 
-			// send input and other state parameters to the animator
-			UpdateAnimator(processedMove);
+            // send input and other state parameters to the animator
+            UpdateAnimator(processedMove);
 
             // Apply aerial controls
+            HandleAerialMovement(ref originalMove);
+            UpdateParticles();
+        }
+
+        void HandleAerialMovement(ref Vector3 originalMove)
+        {
             if ((m_IsGrounded == false) && (m_AerialControlInfluence > 0))
             {
                 if (originalMove.sqrMagnitude > 0)
@@ -98,8 +108,25 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
         }
 
+        void UpdateParticles()
+        {
+            if ((m_IsGrounded == true) && (m_ForwardAmount > m_MoveThreshold))
+            {
+                if(m_walkingParticles.isPlaying == false)
+                {
+                    m_walkingParticles.Play();
+                }
+            }
+            else
+            {
+                if (m_walkingParticles.isPlaying == true)
+                {
+                    m_walkingParticles.Stop();
+                }
+            }
+        }
 
-		void ScaleCapsuleForCrouching(bool crouch)
+        void ScaleCapsuleForCrouching(bool crouch)
 		{
 			if (m_IsGrounded && crouch)
 			{
@@ -216,10 +243,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 if (m_IsGrounded)
                 {
                     Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
-                    Vector3 additiveV = Vector3.zero;
-                    additiveV.z = m_Animator.GetFloat("forward");
-                    additiveV.x = m_Animator.GetFloat("right");
-                    v += m_Animator.transform.rotation * additiveV;
+                    //Vector3 additiveV = Vector3.zero;
+                    //additiveV.z = m_Animator.GetFloat("forward");
+                    //additiveV.x = m_Animator.GetFloat("right");
+                    //v += m_Animator.transform.rotation * additiveV;
 
                     // we preserve the existing y part of the current velocity.
                     v.y = m_Rigidbody.velocity.y;

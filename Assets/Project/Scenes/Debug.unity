@@ -2388,10 +2388,6 @@ Prefab:
       propertyPath: m_Name
       value: ThirdPersonController
       objectReference: {fileID: 0}
-    - target: {fileID: 9509252, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: b8ca2e22caa6bcc42b955522a9b07282, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
   m_IsPrefabParent: 0
@@ -2680,6 +2676,14 @@ Prefab:
       propertyPath: m_Target
       value: 
       objectReference: {fileID: 235146096}
+    - target: {fileID: 470978, guid: 31fe59a7e888bde4eb7b46551eee77db, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481354, guid: 31fe59a7e888bde4eb7b46551eee77db, type: 2}
+      propertyPath: distanceModificationRange.x
+      value: -3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31fe59a7e888bde4eb7b46551eee77db, type: 2}
   m_IsPrefabParent: 0
