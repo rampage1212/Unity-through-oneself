@@ -7,7 +7,7 @@ public class SwitchCollider : MonoBehaviour
 
     void OnCollisionEnter(Collision info)
     {
-        if(info.collider.CompareTag("Player") || info.collider.CompareTag("Helper"))
+        if (Trigger(info.collider) == true)
         {
             correspondingSwitch.AddPerson(info.collider);
         }
@@ -15,9 +15,14 @@ public class SwitchCollider : MonoBehaviour
 
     void OnCollisionExit(Collision info)
     {
-        if (info.collider.CompareTag("Player") || info.collider.CompareTag("Helper"))
+        if (Trigger(info.collider) == true)
         {
             correspondingSwitch.RemovePerson(info.collider);
         }
+    }
+
+    bool Trigger(Collider other)
+    {
+        return ((other.CompareTag("Player") || other.CompareTag("Short Helper") || other.CompareTag("Tall Helper")));
     }
 }
