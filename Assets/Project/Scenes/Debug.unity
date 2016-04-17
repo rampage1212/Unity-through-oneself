@@ -622,7 +622,7 @@ Transform:
 --- !u!4 &235146096 stripped
 Transform:
   m_PrefabParentObject: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-  m_PrefabInternal: {fileID: 1713142923}
+  m_PrefabInternal: {fileID: 1276046640}
 --- !u!1001 &270932233
 Prefab:
   m_ObjectHideFlags: 0
@@ -1920,6 +1920,52 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d1866c312731e0e438fcc928b4ee86fe, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &1276046640
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 196930, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
+      propertyPath: m_Name
+      value: ThirdPersonController
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1352548027
 Prefab:
   m_ObjectHideFlags: 0
@@ -2345,52 +2391,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1451252027}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &1713142923
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 413036, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 196930, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-      propertyPath: m_Name
-      value: ThirdPersonController
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 9d0ec462ed6fc314f9d8107c27190910, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1716612275
 GameObject:
   m_ObjectHideFlags: 0

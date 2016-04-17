@@ -16,11 +16,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		[SerializeField] float m_AnimSpeedMultiplier = 1f;
 		[SerializeField] float m_GroundCheckDistance = 0.1f;
         [SerializeField] float m_AerialControlInfluence = 0f;
-        [Header("Walk Particles")]
-        [SerializeField]
-        ParticleSystem m_walkingParticles = null;
-        [SerializeField]
-        float m_MoveThreshold = 0.1f;
+        //[Header("Walk Particles")]
+        //[SerializeField]
+        //ParticleSystem m_walkingParticles = null;
+        //[SerializeField]
+        //float m_MoveThreshold = 0.1f;
 
         Rigidbody m_Rigidbody;
 		Animator m_Animator;
@@ -86,7 +86,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             // Apply aerial controls
             HandleAerialMovement(ref originalMove);
-            UpdateParticles();
+            //UpdateParticles();
         }
 
         void HandleAerialMovement(ref Vector3 originalMove)
@@ -108,23 +108,23 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
         }
 
-        void UpdateParticles()
-        {
-            if ((m_IsGrounded == true) && (m_ForwardAmount > m_MoveThreshold))
-            {
-                if(m_walkingParticles.isPlaying == false)
-                {
-                    m_walkingParticles.Play();
-                }
-            }
-            else
-            {
-                if (m_walkingParticles.isPlaying == true)
-                {
-                    m_walkingParticles.Stop();
-                }
-            }
-        }
+        //void UpdateParticles()
+        //{
+        //    if (/*(m_IsGrounded == true) && */(m_ForwardAmount > m_MoveThreshold))
+        //    {
+        //        if(m_walkingParticles.isPlaying == false)
+        //        {
+        //            m_walkingParticles.Play();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (m_walkingParticles.isPlaying == true)
+        //        {
+        //            m_walkingParticles.Stop();
+        //        }
+        //    }
+        //}
 
         void ScaleCapsuleForCrouching(bool crouch)
 		{
