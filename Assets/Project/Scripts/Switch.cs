@@ -25,6 +25,10 @@ public class Switch : MonoBehaviour
     UnityEngine.UI.Text label = null;
     [SerializeField]
     SwitchLine line = null;
+    [SerializeField]
+    OmiyaGames.SoundEffect pressedSound = null;
+    [SerializeField]
+    OmiyaGames.SoundEffect upSound = null;
 
     static readonly System.Text.StringBuilder builder = new System.Text.StringBuilder();
     readonly HashSet<Collider> currentPeople = new HashSet<Collider>();
@@ -61,6 +65,10 @@ public class Switch : MonoBehaviour
                     pressedParticles.Stop();
                     line.IsOn = false;
                 }
+                if(currentState == State.Up)
+                {
+                    upSound.Play();
+                }
             }
         }
     }
@@ -81,6 +89,7 @@ public class Switch : MonoBehaviour
     {
         pressedParticles.Play();
         line.IsOn = true;
+        pressedSound.Play();
     }
 
     public bool AddPerson(Collider person)

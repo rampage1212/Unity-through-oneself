@@ -78,7 +78,6 @@ GameObject:
   - 20: {fileID: 2022164}
   - 92: {fileID: 9256488}
   - 124: {fileID: 12482166}
-  - 81: {fileID: 8154450}
   m_Layer: 0
   m_Name: Outside Character Camera
   m_TagString: MainCamera
@@ -117,7 +116,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.15, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 482468}
@@ -267,13 +266,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!81 &8154450
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 195740}
-  m_Enabled: 1
 --- !u!92 &9256488
 Behaviour:
   m_ObjectHideFlags: 1
@@ -324,7 +316,7 @@ MonoBehaviour:
   rayCastMask:
     serializedVersion: 2
     m_Bits: 1
-  distanceModificationRange: {x: -2, y: 4}
+  distanceModificationRange: {x: -3, y: 4}
   scrollModifierStrength: 5
   scrollSmooth: 10
 --- !u!114 &11499074
