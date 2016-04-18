@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using OmiyaGames;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SoundEffect))]
 public class Door : MonoBehaviour
 {
     const string OpenField = "open";
@@ -11,6 +13,7 @@ public class Door : MonoBehaviour
     [SerializeField]
     Switch[] allSwitches = new Switch[1];
 
+    SoundEffect sound = null;
     Animator animator = null;
     bool isOpen;
     readonly HashSet<Switch> allUniqueSwitches = new HashSet<Switch>();
@@ -27,6 +30,18 @@ public class Door : MonoBehaviour
         }
     }
 
+    public SoundEffect CachedSound
+    {
+        get
+        {
+            if(sound == null)
+            {
+                sound = GetComponent<SoundEffect>();
+            }
+            return sound;
+        }
+    }
+
     public bool IsOpen
     {
         get
@@ -39,6 +54,7 @@ public class Door : MonoBehaviour
             {
                 isOpen = value;
                 CachedAnimator.SetBool(OpenField, isOpen);
+                CachedSound.Play();
             }
         }
     }

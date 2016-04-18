@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using OmiyaGames;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(SoundEffect))]
 public class PushableBlock : MonoBehaviour
 {
     [SerializeField]
@@ -11,12 +13,18 @@ public class PushableBlock : MonoBehaviour
     float heavyMass = 99999;
     [SerializeField]
     Text[] allLabels;
+    [SerializeField]
+    Vector2 pitchRange = new Vector2(1f, 2f);
+    [SerializeField]
+    Vector2 velocityToPitch = new Vector2(0.1f, 2f);
 
     static readonly System.Text.StringBuilder builder = new System.Text.StringBuilder();
     readonly HashSet<Collider> currentPeople = new HashSet<Collider>();
     float originalMass = 0;
     Rigidbody body;
+    SoundEffect sound;
     bool isPushable = false;
+    float minVelocitySqr = 0;
 
     bool IsPushable
     {
@@ -54,8 +62,23 @@ public class PushableBlock : MonoBehaviour
         }
     }
 
+    SoundEffect CachedSound
+    {
+        get
+        {
+            if(sound == null)
+            {
+                sound = GetComponent<SoundEffect>();
+            }
+            return sound;
+        }
+    }
+
     void Start()
     {
+        // Square every velocity pitch parameters
+        minVelocitySqr = (velocityToPitch.x * velocityToPitch.x);
+
         CachedBody.mass = heavyMass;
 
         UpdateLabels();
@@ -98,5 +121,30 @@ public class PushableBlock : MonoBehaviour
     bool RightPerson(Collider other)
     {
         return ((other.CompareTag("Player") == true) || (other.CompareTag("Tall Helper")));
+    }
+
+    void Update()
+    {
+        if(body.velocity.sqrMagnitude > minVelocitySqr)
+        {
+            // Play sound
+            if(CachedSound.CurrentState != IAudio.State.Playing)
+            {
+                CachedSound.Play();
+            }
+
+            // Adjust pitch based on velocity
+            float ratio = Mathf.InverseLerp(velocityToPitch.x, velocityToPitch.y, body.velocity.magnitude);
+            if(ratio > 1)
+            {
+                ratio = 1;
+            }
+            CachedSound.CenterPitch = Mathf.Lerp(pitchRange.x, pitchRange.y, ratio);
+        }
+        else if(CachedSound.CurrentState != IAudio.State.Stopped)
+        {
+            // Stop looping sound
+            CachedSound.CurrentState = IAudio.State.Stopped;
+        }
     }
 }
