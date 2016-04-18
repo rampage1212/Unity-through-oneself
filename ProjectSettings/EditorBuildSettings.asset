@@ -16,4 +16,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project/Scenes/Switches 3.unity
   - enabled: 1
+    path: Assets/Project/Scenes/Blocks 4.unity
+  - enabled: 1
     path: Assets/Project/Scenes/Menus/Credits.unity
