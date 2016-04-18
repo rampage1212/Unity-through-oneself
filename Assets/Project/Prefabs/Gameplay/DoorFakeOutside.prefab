@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 124816}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: -24, y: 3.72, z: 12.71}
+  m_LocalPosition: {x: -24, y: 3.72, z: 4.44}
   m_LocalScale: {x: 3, y: 0.49999997, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
@@ -62,7 +62,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 124816}
-  m_Mesh: {fileID: 4300000, guid: 1225e22997aba2e47a6eb0eebe275bb3, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 09d4f1d75e080c9498fc0d9fb6ad74fe, type: 3}
 --- !u!114 &11460148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17650878a7131eb448b5a3b1b2ef2a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorRange: {r: 0.72156864, g: 0.23529413, b: 0.50980395, a: 1}
+  colorRange: {r: 0.5294118, g: 0.23529412, b: 0.4, a: 1}
   allRenderers:
   - {fileID: 2324096}
 --- !u!1001 &100100000
