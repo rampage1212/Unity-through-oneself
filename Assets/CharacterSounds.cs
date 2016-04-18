@@ -15,6 +15,8 @@ public class CharacterSounds : MonoBehaviour
     SoundEffect land;
     [SerializeField]
     float maximumDistanceBeforePlay = 4f;
+    [SerializeField]
+    float minFootstepDistance = 0.1f;
 
     // Use this for initialization
     void Start ()
@@ -43,9 +45,12 @@ public class CharacterSounds : MonoBehaviour
 
     private void Character_OnFootStep(ThirdPersonCharacter obj)
     {
-        if (IsCloseEnoughToPlayer == true)
+        if ((obj.ForwardAmount > minFootstepDistance) && (IsCloseEnoughToPlayer == true))
         {
-            footsteps.Play();
+            if(gameObject.name == "Controlled Character")
+            {
+                footsteps.Play();
+            }
         }
     }
 

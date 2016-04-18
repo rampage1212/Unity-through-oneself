@@ -13,8 +13,12 @@ public class PushableBlock : MonoBehaviour
     float heavyMass = 99999;
     [SerializeField]
     Text[] allLabels;
+
+    [Header("Pitch Adjustment")]
     [SerializeField]
     Vector2 pitchRange = new Vector2(1f, 2f);
+    [SerializeField]
+    Vector2 volumeRange = new Vector2(0.1f, 0.8f);
     [SerializeField]
     Vector2 velocityToPitch = new Vector2(0.1f, 2f);
 
@@ -24,7 +28,7 @@ public class PushableBlock : MonoBehaviour
     Rigidbody body;
     SoundEffect sound;
     bool isPushable = false;
-    float minVelocitySqr = 0;
+    float minVelocityForPitchSqr = 0;
 
     bool IsPushable
     {
@@ -77,7 +81,7 @@ public class PushableBlock : MonoBehaviour
     void Start()
     {
         // Square every velocity pitch parameters
-        minVelocitySqr = (velocityToPitch.x * velocityToPitch.x);
+        minVelocityForPitchSqr = (velocityToPitch.x * velocityToPitch.x);
 
         CachedBody.mass = heavyMass;
 
@@ -125,12 +129,13 @@ public class PushableBlock : MonoBehaviour
 
     void Update()
     {
-        if(body.velocity.sqrMagnitude > minVelocitySqr)
+        if(body.velocity.sqrMagnitude > minVelocityForPitchSqr)
         {
             // Play sound
             if(CachedSound.CurrentState != IAudio.State.Playing)
             {
                 CachedSound.Play();
+                //Debug.Log("Play drag sound");
             }
 
             // Adjust pitch based on velocity
@@ -140,11 +145,13 @@ public class PushableBlock : MonoBehaviour
                 ratio = 1;
             }
             CachedSound.CenterPitch = Mathf.Lerp(pitchRange.x, pitchRange.y, ratio);
+            CachedSound.CenterVolume = Mathf.Lerp(volumeRange.x, volumeRange.y, ratio);
         }
         else if(CachedSound.CurrentState != IAudio.State.Stopped)
         {
             // Stop looping sound
             CachedSound.CurrentState = IAudio.State.Stopped;
+            Debug.Log("Stop drag sound");
         }
     }
 }

@@ -45,8 +45,15 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		bool m_Crouching;
         bool m_OnFirstStep = true;
 
+        public float ForwardAmount
+        {
+            get
+            {
+                return m_ForwardAmount;
+            }
+        }
 
-		void Start()
+        void Start()
 		{
 			m_Animator = GetComponent<Animator>();
 			m_Rigidbody = GetComponent<Rigidbody>();
@@ -294,13 +301,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			// it is also good to note that the transform position in the sample assets is at the base of the character
 			if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, m_GroundCheckDistance, groundLayerMask))
 			{
-				m_GroundNormal = hitInfo.normal;
-				m_IsGrounded = true;
-				m_Animator.applyRootMotion = true;
-                if (OnLand != null)
+                if ((m_IsGrounded == false) && (OnLand != null))
                 {
                     OnLand(this);
                 }
+                m_GroundNormal = hitInfo.normal;
+				m_IsGrounded = true;
+				m_Animator.applyRootMotion = true;
             }
 			else
 			{
