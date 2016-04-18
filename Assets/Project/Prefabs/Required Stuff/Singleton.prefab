@@ -808,7 +808,7 @@ MonoBehaviour:
     cursorMode: 0
     revertTimeScale: 1
   levels:
-  - scenePath: Assets/Project/Scenes/Debug.unity
+  - scenePath: Assets/Project/Scenes/Tutorial 1.unity
     displayName: Level 1
     cursorMode: 1
     revertTimeScale: 1
