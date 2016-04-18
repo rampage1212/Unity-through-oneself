@@ -25,11 +25,14 @@ public class FormationWander : IFormation
         GameObject newObject = null;
         foreach(NonPlayableCharacter npc in allNpcs)
         {
-            newObject = new GameObject(npc.name + " Target");
-            newObject.transform.SetParent(transform);
-            allControllers.Add(npc.CachedAi, newObject.transform);
+            if (npc != null)
+            {
+                newObject = new GameObject(npc.name + " Target");
+                newObject.transform.SetParent(transform);
+                allControllers.Add(npc.CachedAi, newObject.transform);
 
-            UpdateBreadcrumbs(npc.CachedAi);
+                UpdateBreadcrumbs(npc.CachedAi);
+            }
         }
     }
 
@@ -37,7 +40,10 @@ public class FormationWander : IFormation
     {
         for (updateIndex = 0; updateIndex < allNpcs.Length; ++updateIndex)
         {
-            allNpcs[updateIndex].UpdateTarget(this);
+            if (allNpcs[updateIndex] != null)
+            {
+                allNpcs[updateIndex].UpdateTarget(this);
+            }
         }
     }
 
