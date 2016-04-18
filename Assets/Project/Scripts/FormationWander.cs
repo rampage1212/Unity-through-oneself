@@ -5,14 +5,21 @@ public class FormationWander : IFormation
 {
     [SerializeField]
     Vector2 dimensions;
+    [SerializeField]
+    NonPlayableCharacter[] allNpcs;
 
-    NonPlayableCharacter[] allNpcs = null;
+
     Dictionary<MoveToTargetCharacterControl, Transform> allControllers = new Dictionary<MoveToTargetCharacterControl, Transform>();
     int updateIndex;
 
-    void Start()
+    [ContextMenu("Populate allNpcs")]
+    void PopulateNpcs()
     {
         allNpcs = GetComponentsInChildren<NonPlayableCharacter>();
+    }
+
+    void Start()
+    {
         allControllers.Clear();
 
         GameObject newObject = null;

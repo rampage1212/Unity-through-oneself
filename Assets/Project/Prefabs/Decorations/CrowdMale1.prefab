@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standFor: 1
-  resizeRange: {x: 0.7, y: 1.4}
+  resizeRange: {x: 0.8, y: 1.2}
 --- !u!114 &11476882
 MonoBehaviour:
   m_ObjectHideFlags: 1
