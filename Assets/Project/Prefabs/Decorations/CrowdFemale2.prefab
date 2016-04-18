@@ -383,7 +383,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -458,7 +458,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -533,7 +533,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -672,6 +672,7 @@ MonoBehaviour:
   jump: {fileID: 11436362}
   land: {fileID: 11471172}
   maximumDistanceBeforePlay: 4
+  minFootstepDistance: 0.1
 --- !u!114 &11471172
 MonoBehaviour:
   m_ObjectHideFlags: 1

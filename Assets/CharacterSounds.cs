@@ -47,10 +47,7 @@ public class CharacterSounds : MonoBehaviour
     {
         if ((obj.ForwardAmount > minFootstepDistance) && (IsCloseEnoughToPlayer == true))
         {
-            if(gameObject.name == "Controlled Character")
-            {
-                footsteps.Play();
-            }
+            footsteps.Play();
         }
     }
 
