@@ -20,8 +20,8 @@ TagManager:
   - Outside Characters Only
   - Inside Characters Collidable
   - Outside Characters Collidable
-  - Exclude Mask
-  - 
+  - Inside Exclude Mask
+  - Outside Exclude Mask
   - 
   - 
   - 
