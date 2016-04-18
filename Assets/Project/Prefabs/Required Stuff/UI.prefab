@@ -3229,18 +3229,18 @@ MonoBehaviour:
     enabled: 1
     precision: 16
     colorWheels:
-      shadows: {r: 0.6016103, g: 0.6229013, b: 1, a: 1}
-      midtones: {r: 1, g: 1, b: 1, a: 1}
-      highlights: {r: 1, g: 0.79204506, b: 0.54772305, a: 1}
+      shadows: {r: 0.64817154, g: 0.7197528, b: 1, a: 1}
+      midtones: {r: 0.72970784, g: 0.78499925, b: 1, a: 1}
+      highlights: {r: 1, g: 0.8789956, b: 0.59309566, a: 1}
     basics:
-      temperatureShift: 0
-      tint: 0
+      temperatureShift: 0.44
+      tint: 0.09
       hue: 0
       saturation: 1
-      vibrance: 0
-      value: 1
+      vibrance: 0.22
+      value: 1.53
       contrast: 1
-      gain: 1
+      gain: 1.15
       gamma: 1
     channelMixer:
       currentChannel: 0

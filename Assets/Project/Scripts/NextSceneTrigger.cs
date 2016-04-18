@@ -9,7 +9,14 @@ public class NextSceneTrigger : MonoBehaviour
     {
         if((isTriggered == false) && (other.CompareTag("Player") == true))
         {
-            Singleton.Get<SceneTransitionManager>().LoadNextLevel();
+            SceneTransitionManager scenes = Singleton.Get<SceneTransitionManager>();
+            scenes.LoadNextLevel();
+            GameSettings settings = Singleton.Get<GameSettings>();
+            settings.NumLevelsUnlocked = (scenes.CurrentScene.Ordinal + GameSettings.DefaultNumLevelsUnlocked + 1);
+            if(Debug.isDebugBuild == true)
+            {
+                Debug.Log("Set unlocked levels to: " + settings.NumLevelsUnlocked);
+            }
             isTriggered = true;
         }
     }
