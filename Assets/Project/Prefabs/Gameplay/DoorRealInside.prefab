@@ -13,6 +13,7 @@ GameObject:
   - 65: {fileID: 6515992}
   - 95: {fileID: 9507862}
   - 114: {fileID: 11446398}
+  - 114: {fileID: 11441574}
   m_Layer: 11
   m_Name: DoorRealInside
   m_TagString: Untagged
@@ -94,6 +95,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11441574
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17650878a7131eb448b5a3b1b2ef2a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorRange: {r: 0.72156864, g: 0.23529413, b: 0.50980395, a: 1}
+  allRenderers:
+  - {fileID: 2355708}
 --- !u!114 &11446398
 MonoBehaviour:
   m_ObjectHideFlags: 1

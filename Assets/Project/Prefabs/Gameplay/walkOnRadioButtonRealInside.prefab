@@ -280,6 +280,7 @@ GameObject:
   - 33: {fileID: 3379946}
   - 23: {fileID: 2301914}
   - 64: {fileID: 6486934}
+  - 114: {fileID: 11421990}
   m_Layer: 11
   m_Name: Plane
   m_TagString: Untagged
@@ -300,6 +301,7 @@ GameObject:
   - 65: {fileID: 6509112}
   - 114: {fileID: 11418674}
   - 54: {fileID: 5474036}
+  - 114: {fileID: 11433590}
   m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
@@ -881,6 +883,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   correspondingSwitch: {fileID: 11445024}
+--- !u!114 &11421990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 179064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17650878a7131eb448b5a3b1b2ef2a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorRange: {r: 0.1254902, g: 0.15686275, b: 0.18431373, a: 1}
+  allRenderers:
+  - {fileID: 2301914}
+--- !u!114 &11433590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17650878a7131eb448b5a3b1b2ef2a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorRange: {r: 0.61960787, g: 0.8862745, b: 0.25882354, a: 1}
+  allRenderers:
+  - {fileID: 2300376}
 --- !u!114 &11445024
 MonoBehaviour:
   m_ObjectHideFlags: 1

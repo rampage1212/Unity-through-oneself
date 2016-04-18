@@ -13,6 +13,7 @@ GameObject:
   - 65: {fileID: 6574922}
   - 95: {fileID: 9598024}
   - 114: {fileID: 11433140}
+  - 114: {fileID: 11473730}
   m_Layer: 0
   m_Name: DoorRealOutside
   m_TagString: Untagged
@@ -108,6 +109,20 @@ MonoBehaviour:
   openByDefault: 0
   allSwitches:
   - {fileID: 0}
+--- !u!114 &11473730
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17650878a7131eb448b5a3b1b2ef2a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorRange: {r: 0.72156864, g: 0.23529413, b: 0.50980395, a: 1}
+  allRenderers:
+  - {fileID: 2347742}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

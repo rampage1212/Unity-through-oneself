@@ -149,6 +149,7 @@ GameObject:
   - 65: {fileID: 6543596}
   - 54: {fileID: 5459198}
   - 114: {fileID: 11407500}
+  - 114: {fileID: 11426894}
   m_Layer: 11
   m_Name: BlockRealInside
   m_TagString: Untagged
@@ -578,6 +579,20 @@ MonoBehaviour:
   m_Text: '55/55
 
 '
+--- !u!114 &11426894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17650878a7131eb448b5a3b1b2ef2a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorRange: {r: 0.72156864, g: 0.23529412, b: 0.5058824, a: 1}
+  allRenderers:
+  - {fileID: 2387612}
 --- !u!114 &11434956
 MonoBehaviour:
   m_ObjectHideFlags: 1

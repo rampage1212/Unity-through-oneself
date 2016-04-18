@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 479812}
   - 33: {fileID: 3396438}
   - 23: {fileID: 2305676}
+  - 114: {fileID: 11453108}
   m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
@@ -42,6 +43,7 @@ GameObject:
   - 4: {fileID: 485542}
   - 33: {fileID: 3318000}
   - 23: {fileID: 2347880}
+  - 114: {fileID: 11483542}
   m_Layer: 10
   m_Name: Plane
   m_TagString: Untagged
@@ -153,6 +155,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 105030}
   m_Mesh: {fileID: 4300002, guid: 6980f48ffca702246999affbb7d34e95, type: 3}
+--- !u!114 &11453108
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17650878a7131eb448b5a3b1b2ef2a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorRange: {r: 0.61960787, g: 0.8862745, b: 0.25882354, a: 1}
+  allRenderers:
+  - {fileID: 2305676}
+--- !u!114 &11483542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 196964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17650878a7131eb448b5a3b1b2ef2a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorRange: {r: 0.1254902, g: 0.15686275, b: 0.18431373, a: 1}
+  allRenderers:
+  - {fileID: 2347880}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

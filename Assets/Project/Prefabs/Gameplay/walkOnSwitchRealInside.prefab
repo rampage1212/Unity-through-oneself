@@ -13,6 +13,7 @@ GameObject:
   - 65: {fileID: 6558734}
   - 114: {fileID: 11401476}
   - 54: {fileID: 5442558}
+  - 114: {fileID: 11474834}
   m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
@@ -128,6 +129,7 @@ GameObject:
   - 33: {fileID: 3325342}
   - 23: {fileID: 2306702}
   - 64: {fileID: 6410748}
+  - 114: {fileID: 11425172}
   m_Layer: 11
   m_Name: Plane
   m_TagString: Untagged
@@ -875,6 +877,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 88/88
+--- !u!114 &11425172
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17650878a7131eb448b5a3b1b2ef2a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorRange: {r: 0.1254902, g: 0.15686275, b: 0.18431373, a: 1}
+  allRenderers:
+  - {fileID: 2306702}
 --- !u!114 &11464590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -907,6 +923,20 @@ MonoBehaviour:
   pitchMutationRange: {x: 0.5, y: 1.5}
   mutateVolume: 0
   volumeMutationRange: {x: 0.5, y: 1}
+--- !u!114 &11474834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17650878a7131eb448b5a3b1b2ef2a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorRange: {r: 0.61960787, g: 0.8862745, b: 0.25882354, a: 1}
+  allRenderers:
+  - {fileID: 2357044}
 --- !u!114 &11476854
 MonoBehaviour:
   m_ObjectHideFlags: 1

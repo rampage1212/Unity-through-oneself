@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3300000}
   - 23: {fileID: 2300000}
   - 64: {fileID: 6400000}
+  - 114: {fileID: 11420904}
   m_Layer: 0
   m_Name: JoinMidPrototype04x06x01
   m_TagString: Untagged
@@ -75,6 +76,20 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300002, guid: 40384240c1c82b94db82531689571ab0, type: 3}
+--- !u!114 &11420904
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17650878a7131eb448b5a3b1b2ef2a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorRange: {r: 0.1254902, g: 0.15686275, b: 0.18431373, a: 1}
+  allRenderers:
+  - {fileID: 2300000}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
