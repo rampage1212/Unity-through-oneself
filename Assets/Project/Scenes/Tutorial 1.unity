@@ -568,6 +568,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 11497200, guid: 4ccf4087c59437d448d516c29a767dc2, type: 2}
+      propertyPath: cameraYAngleRange.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497200, guid: 4ccf4087c59437d448d516c29a767dc2, type: 2}
+      propertyPath: cameraYAngleRange.y
+      value: 310
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ccf4087c59437d448d516c29a767dc2, type: 2}
   m_IsPrefabParent: 0
@@ -3021,11 +3029,11 @@ Transform:
   - {fileID: 1446000906}
   - {fileID: 2080490002}
   - {fileID: 2080480343}
-  - {fileID: 1385003233}
   - {fileID: 740345704}
   - {fileID: 1133011223}
   - {fileID: 369562796}
   - {fileID: 1058552171}
+  - {fileID: 1385003233}
   - {fileID: 784871930}
   - {fileID: 1345367377}
   - {fileID: 911473839}
