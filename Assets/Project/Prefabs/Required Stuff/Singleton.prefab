@@ -812,6 +812,22 @@ MonoBehaviour:
     displayName: Level 1
     cursorMode: 1
     revertTimeScale: 1
+  - scenePath: Assets/Project/Scenes/Tutorial 2.unity
+    displayName: Level 2
+    cursorMode: 1
+    revertTimeScale: 1
+  - scenePath: Assets/Project/Scenes/Switches 3.unity
+    displayName: Level 3
+    cursorMode: 1
+    revertTimeScale: 1
+  - scenePath: Assets/Project/Scenes/Blocks 4.unity
+    displayName: Level 4
+    cursorMode: 1
+    revertTimeScale: 1
+  - scenePath: Assets/Project/Scenes/Blocks 5.unity
+    displayName: Level 5
+    cursorMode: 1
+    revertTimeScale: 1
 --- !u!114 &11428920
 MonoBehaviour:
   m_ObjectHideFlags: 1
