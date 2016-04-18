@@ -1,53 +1,79 @@
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
+using System.Collections.Generic;
 
 [RequireComponent(typeof (ThirdPersonCharacter))]
 public class MoveToTargetCharacterControl : MonoBehaviour
 {
-    public NavMeshAgent agent { get; private set; }             // the navmesh agent required for the path finding
     public ThirdPersonCharacter character { get; private set; } // the character we are controlling
     [SerializeField]
-    Transform target;                                    // target to aim for
-    //[SerializeField]
-    //float maxMoveVelocity = 2f;
-    //[SerializeField]
-    //float acceleration = 2f;
+    float maxMoveVelocity = 2f;
     [SerializeField]
     float stopRange = 0.2f;
+    [SerializeField]
+    bool disregardYAxis = true;
+
+    float lastTimeFollowingTarget = -1f;
+    readonly Queue<Transform> breadcrumbs = new Queue<Transform>();
+
+    public float DurationNotFollowingTarget
+    {
+        get
+        {
+            return Time.time - lastTimeFollowingTarget;
+        }
+    }
+
+    public void AddBreadcrumb(Transform newBreadCrumb)
+    {
+        if(newBreadCrumb != null)
+        {
+            breadcrumbs.Enqueue(newBreadCrumb);
+        }
+    }
+
+    public void ClearBreadcrumbs()
+    {
+        breadcrumbs.Clear();
+    }
 
     private void Start()
     {
-        // get the components on the object we need ( should not be null due to require component so no need to check )
-        agent = GetComponentInChildren<NavMeshAgent>();
         character = GetComponent<ThirdPersonCharacter>();
-
-	    agent.updateRotation = false;
-	    agent.updatePosition = true;
+        lastTimeFollowingTarget = Time.time;
     }
-
 
     private void Update()
     {
         Vector3 moveDirection = Vector3.zero;
-        if (target != null)
+        if (breadcrumbs.Count > 0)
         {
-            moveDirection = target.position - transform.position;
-            if(moveDirection.sqrMagnitude < (stopRange * stopRange))
+            moveDirection = breadcrumbs.Peek().position - transform.position;
+            if(disregardYAxis == true)
             {
-                moveDirection = Vector3.zero;
+                moveDirection.y = 0;
             }
-            //else
-            //{
+            if (moveDirection.sqrMagnitude < (stopRange * stopRange))
+            {
+                // Zero movement
+                moveDirection.x = 0;
+                moveDirection.y = 0;
+                moveDirection.z = 0;
 
-            //}
+                // Remove this breadcrumb
+                breadcrumbs.Dequeue();
+            }
+            else
+            {
+                lastTimeFollowingTarget = Time.time;
+                if (moveDirection.sqrMagnitude > (maxMoveVelocity * maxMoveVelocity))
+                {
+                    moveDirection.Normalize();
+                    moveDirection *= maxMoveVelocity;
+                }
+            }
         }
 
         character.Move(moveDirection, false, false);
-    }
-
-
-    public void SetTarget(Transform target)
-    {
-        this.target = target;
     }
 }

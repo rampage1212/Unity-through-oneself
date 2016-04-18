@@ -61,6 +61,7 @@ GameObject:
   - 54: {fileID: 5424202}
   - 114: {fileID: 11445574}
   - 114: {fileID: 11460972}
+  - 114: {fileID: 11436706}
   m_Layer: 10
   m_Name: CrowdMale3
   m_TagString: Untagged
@@ -267,6 +268,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 0
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11436706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 164384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45be9c1dcd22fc4380361848b75f988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  standFor: 1
+  resizeRange: {x: 0.7, y: 1.4}
 --- !u!114 &11445574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -285,8 +299,14 @@ MonoBehaviour:
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
-  m_GroundCheckDistance: 0.1
+  m_GroundCheckDistance: 0.25
   m_AerialControlInfluence: 0
+  crouchLayerMask:
+    serializedVersion: 2
+    m_Bits: 4097
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 4097
 --- !u!114 &11460972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -298,10 +318,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce4c0424545a86469c6cd83b0bb1188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  maxMoveVelocity: 2
-  acceleration: 2
+  maxMoveVelocity: 0.5
   stopRange: 0.2
+  disregardYAxis: 1
 --- !u!136 &13663256
 CapsuleCollider:
   m_ObjectHideFlags: 1
