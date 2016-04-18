@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class PushableBlock : MonoBehaviour {
+public class PushableBlock : MonoBehaviour
+{
 
 	// Use this for initialization
 	void Start () {

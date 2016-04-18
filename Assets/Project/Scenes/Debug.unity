@@ -1215,7 +1215,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1386583162}
+    m_TransformParent: {fileID: 1951017800}
     m_Modifications:
     - target: {fileID: 460042, guid: d4c5a403f049a1848a588a78a4b0a1a9, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1247,7 +1247,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 460042, guid: d4c5a403f049a1848a588a78a4b0a1a9, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d4c5a403f049a1848a588a78a4b0a1a9, type: 2}
@@ -1764,7 +1764,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1386583162}
+    m_TransformParent: {fileID: 1951017800}
     m_Modifications:
     - target: {fileID: 440678, guid: 672e11358d94f9d4d868d7fcee718e87, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1796,7 +1796,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 440678, guid: 672e11358d94f9d4d868d7fcee718e87, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 22403382, guid: 672e11358d94f9d4d868d7fcee718e87, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1868,7 +1868,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1386583162}
+    m_TransformParent: {fileID: 1951017800}
     m_Modifications:
     - target: {fileID: 470958, guid: c738260721270764bbb8665d15d63d4a, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1900,7 +1900,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 470958, guid: c738260721270764bbb8665d15d63d4a, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 176702, guid: c738260721270764bbb8665d15d63d4a, type: 2}
       propertyPath: m_Name
@@ -2367,37 +2367,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 29ada879ff45b614ba94b4b233adbe5a, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1386583161
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1386583162}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1386583162
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1386583161}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1453125388}
-  - {fileID: 1906222190}
-  - {fileID: 1284343158}
-  - {fileID: 792400775}
-  m_Father: {fileID: 1951017800}
-  m_RootOrder: 11
 --- !u!1001 &1390157353
 Prefab:
   m_ObjectHideFlags: 0
@@ -2935,7 +2904,10 @@ Transform:
   - {fileID: 674852527}
   - {fileID: 403235134}
   - {fileID: 1998832613}
-  - {fileID: 1386583162}
+  - {fileID: 1453125388}
+  - {fileID: 1906222190}
+  - {fileID: 1284343158}
+  - {fileID: 792400775}
   m_Father: {fileID: 0}
   m_RootOrder: 12
 --- !u!1001 &1963397061
@@ -3059,7 +3031,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1386583162}
+    m_TransformParent: {fileID: 1951017800}
     m_Modifications:
     - target: {fileID: 491228, guid: 1d1a734ad34697245b11f6d718d0611b, type: 2}
       propertyPath: m_LocalPosition.x
@@ -3091,7 +3063,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 491228, guid: 1d1a734ad34697245b11f6d718d0611b, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1d1a734ad34697245b11f6d718d0611b, type: 2}
