@@ -13,7 +13,7 @@ GameObject:
   - 65: {fileID: 6504846}
   - 114: {fileID: 11472450}
   m_Layer: 0
-  m_Name: PlatformPrototype08x01x08 (1)
+  m_Name: LowCeiling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

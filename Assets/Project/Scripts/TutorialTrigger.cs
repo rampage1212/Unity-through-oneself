@@ -10,11 +10,14 @@ public class TutorialTrigger : MonoBehaviour
     string cameraMessage;
     [SerializeField]
     Vector2 cameraYAngleRange = new Vector2(180f + 30f, 360f - 30f);
+    [SerializeField]
+    int maxNumberOfTriggers = 0;
 
     ulong defaultPopUp = PopUpManager.InvalidId;
     ulong cameraPopUp = PopUpManager.InvalidId;
     MenuManager manager = null;
     bool isTriggered = false;
+    int numTimesTriggered = 0;
 
     MenuManager Manager
     {
@@ -32,11 +35,12 @@ public class TutorialTrigger : MonoBehaviour
     {
         if ((other.CompareTag("Player") == true) && (Manager.PopUps != null))
         {
-            isTriggered = true;
-            if ((string.IsNullOrEmpty(defaultMessage) == false) && (defaultPopUp == PopUpManager.InvalidId))
+            if ((string.IsNullOrEmpty(defaultMessage) == false) && (defaultPopUp == PopUpManager.InvalidId) && ((maxNumberOfTriggers < 1) || (numTimesTriggered < maxNumberOfTriggers)))
             {
                 defaultPopUp = Manager.PopUps.ShowNewDialog(defaultMessage);
             }
+            isTriggered = true;
+            numTimesTriggered += 1;
         }
     }
 
