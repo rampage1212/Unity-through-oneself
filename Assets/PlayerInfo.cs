@@ -11,6 +11,14 @@ public class PlayerInfo : MonoBehaviour
     [SerializeField]
     FreeLookCam cameraController;
 
+    public static PlayerInfo Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
     public static ThirdPersonUserControl PlayerController
     {
         get

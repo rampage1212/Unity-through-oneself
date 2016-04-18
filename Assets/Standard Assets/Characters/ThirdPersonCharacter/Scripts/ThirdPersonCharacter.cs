@@ -7,7 +7,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 	[RequireComponent(typeof(Animator))]
 	public class ThirdPersonCharacter : MonoBehaviour
 	{
-		[SerializeField] float m_MovingTurnSpeed = 360;
+        public event System.Action<ThirdPersonCharacter> OnFootStep;
+        public event System.Action<ThirdPersonCharacter> OnJump;
+        public event System.Action<ThirdPersonCharacter> OnLand;
+
+        [SerializeField] float m_MovingTurnSpeed = 360;
 		[SerializeField] float m_StationaryTurnSpeed = 180;
 		[SerializeField] float m_JumpPower = 12f;
 		[Range(1f, 4f)][SerializeField] float m_GravityMultiplier = 2f;
@@ -39,6 +43,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
+        bool m_OnFirstStep = true;
 
 
 		void Start()
@@ -191,7 +196,20 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			if (m_IsGrounded)
 			{
 				m_Animator.SetFloat("JumpLeg", jumpLeg);
-			}
+                if(OnFootStep != null)
+                {
+                    if((m_OnFirstStep == true) && (runCycle < 0.5f))
+                    {
+                        OnFootStep(this);
+                        m_OnFirstStep = false;
+                    }
+                    else if ((m_OnFirstStep == false) && (runCycle > 0.5f))
+                    {
+                        OnFootStep(this);
+                        m_OnFirstStep = true;
+                    }
+                }
+            }
 
 			// the anim speed multiplier allows the overall speed of walking/running to be tweaked in the inspector,
 			// which affects the movement speed because of the root motion.
@@ -227,6 +245,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_IsGrounded = false;
 				m_Animator.applyRootMotion = false;
 				m_GroundCheckDistance = 0.1f;
+
+                if(OnJump != null)
+                {
+                    OnJump(this);
+                }
 			}
 		}
 
@@ -274,7 +297,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_GroundNormal = hitInfo.normal;
 				m_IsGrounded = true;
 				m_Animator.applyRootMotion = true;
-			}
+                if (OnLand != null)
+                {
+                    OnLand(this);
+                }
+            }
 			else
 			{
 				m_IsGrounded = false;
