@@ -56,7 +56,7 @@ public class CharacterSounds : MonoBehaviour
             bool returnFlag = false;
             if (PlayerInfo.Instance != null)
             {
-                if (gameObject != PlayerInfo.PlayerController.gameObject)
+                if (transform != PlayerInfo.PlayerController.transform)
                 {
                     // Check the distance
                     vectorCache = transform.position - PlayerInfo.PlayerController.transform.position;
