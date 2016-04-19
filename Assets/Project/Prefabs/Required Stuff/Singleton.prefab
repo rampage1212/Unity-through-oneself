@@ -879,8 +879,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66323afbd69e1904f8df75431dfad808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  domainMustContain: []
-  redirectURL: 
+  domainMustContain:
+  - ludumdare.com
+  - www.ludumdare.com
+  - omiyagames.com
+  - www.omiyagames.com
+  - techvalleygamespace.com
+  - www.techvalleygamespace.com
+  - newgrounds.com
+  - www.newgrounds.com
+  - gamejolt.com
+  - www.gamejolt.com
+  - kongregate.com
+  - www.kongregate.com
+  - itch.io
+  redirectURL: www.omiyagames.com
 --- !u!114 &11480656
 MonoBehaviour:
   m_ObjectHideFlags: 1
