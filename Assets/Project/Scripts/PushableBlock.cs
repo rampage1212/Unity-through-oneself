@@ -21,6 +21,16 @@ public class PushableBlock : MonoBehaviour
     Vector2 volumeRange = new Vector2(0.1f, 0.8f);
     [SerializeField]
     Vector2 velocityToPitch = new Vector2(0.1f, 2f);
+    [SerializeField]
+    LayerMask groundLayerMask = ~0;
+    [SerializeField]
+    float m_GroundCheckDistance = 1f;
+
+    [Header("Thud Sound")]
+    [SerializeField]
+    SoundEffect thud;
+    [SerializeField]
+    float playThudIfVelocityDifference = 1f;
 
     static readonly System.Text.StringBuilder builder = new System.Text.StringBuilder();
     readonly HashSet<Collider> currentPeople = new HashSet<Collider>();
@@ -29,6 +39,8 @@ public class PushableBlock : MonoBehaviour
     SoundEffect sound;
     bool isPushable = false;
     float minVelocityForPitchSqr = 0;
+    Vector3 horizontalVelocity;
+    float lastYVelocity = 0f;
 
     bool IsPushable
     {
@@ -129,17 +141,17 @@ public class PushableBlock : MonoBehaviour
 
     void Update()
     {
-        if(body.velocity.sqrMagnitude > minVelocityForPitchSqr)
+        // Play drag
+        if (IsMovingAndOnGround(ref horizontalVelocity) == true)
         {
             // Play sound
             if(CachedSound.CurrentState != IAudio.State.Playing)
             {
                 CachedSound.Play();
-                //Debug.Log("Play drag sound");
             }
 
             // Adjust pitch based on velocity
-            float ratio = Mathf.InverseLerp(velocityToPitch.x, velocityToPitch.y, body.velocity.magnitude);
+            float ratio = Mathf.InverseLerp(velocityToPitch.x, velocityToPitch.y, horizontalVelocity.magnitude);
             if(ratio > 1)
             {
                 ratio = 1;
@@ -151,7 +163,32 @@ public class PushableBlock : MonoBehaviour
         {
             // Stop looping sound
             CachedSound.CurrentState = IAudio.State.Stopped;
-            Debug.Log("Stop drag sound");
         }
+
+        // Play thud
+        if(Mathf.Abs(body.velocity.y - lastYVelocity) > playThudIfVelocityDifference)
+        {
+            thud.Play();
+        }
+        lastYVelocity = body.velocity.y;
+    }
+
+    bool IsMovingAndOnGround(ref Vector3 horizontalVelocity)
+    {
+        bool returnFlag = false;
+
+        // Update horizontal velocity
+        horizontalVelocity = body.velocity;
+        horizontalVelocity.y = 0;
+
+        if(horizontalVelocity.sqrMagnitude > minVelocityForPitchSqr)
+        {
+            RaycastHit hitInfo;
+            if(Physics.Raycast(transform.position, Vector3.down, out hitInfo, m_GroundCheckDistance, groundLayerMask) == true)
+            {
+                returnFlag = true;
+            }
+        }
+        return returnFlag;
     }
 }
