@@ -78,10 +78,6 @@ namespace OmiyaGames
             {
                 Cursor.lockState = value;
                 Cursor.visible = (value != CursorLockMode.Locked);
-                if(Debug.isDebugBuild == true)
-                {
-                    Debug.Log("Cursor set to " + Cursor.lockState);
-                }
             }
         }
 

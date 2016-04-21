@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11428526}
+  - 114: {fileID: 11403826}
   m_Layer: 0
   m_Name: Singleton
   m_TagString: Untagged
@@ -714,6 +715,25 @@ MonoBehaviour:
   defaultNewgroundsLeaderboardId: 
   defaultGameJoltLeaderboardId: 
   defaultKongregateLeaderboardId: 
+--- !u!114 &11403826
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66323afbd69e1904f8df75431dfad808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  domainMustContain:
+  - ludumdare.com
+  - omiyagames.com
+  - gamejolt.com
+  - newgrounds.com
+  - kongregate.com
+  - itch.io
+  redirectURL: http://ludumdare.com/compo/ludum-dare-35/?action=preview&uid=20557
 --- !u!114 &11406140
 MonoBehaviour:
   m_ObjectHideFlags: 1
