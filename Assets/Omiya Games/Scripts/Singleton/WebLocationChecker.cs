@@ -7,18 +7,40 @@ using System.Collections.Generic;
 namespace OmiyaGames
 {
     ///-----------------------------------------------------------------------
-    /// <copyright file="WebLocationChecker.cs">
-    /// Original code by andyman from Github:
-    /// https://gist.github.com/andyman/e58dea85cce23cccecff
-    /// Extra modifications by jcx from Github:
-    /// https://gist.github.com/jcx/93a3fc93531911add8a8
-    /// Taro Omiya made a couple of changes as well.
+    /// <copyright file="WebLocationChecker.cs" company="Omiya Games">
+    /// The MIT License (MIT)
+    /// 
+    /// Copyright (c) 2014-2015 Omiya Games
+    /// 
+    /// Permission is hereby granted, free of charge, to any person obtaining a copy
+    /// of this software and associated documentation files (the "Software"), to deal
+    /// in the Software without restriction, including without limitation the rights
+    /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    /// copies of the Software, and to permit persons to whom the Software is
+    /// furnished to do so, subject to the following conditions:
+    /// 
+    /// The above copyright notice and this permission notice shall be included in
+    /// all copies or substantial portions of the Software.
+    /// 
+    /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    /// THE SOFTWARE.
     /// </copyright>
+    /// <date>4/21/2015</date>
+    /// <author>Taro Omiya</author>
     /// <author>andyman</author>
     /// <author>jcx</author>
-    /// <author>Taro Omiya</author>
     ///-----------------------------------------------------------------------
     /// <summary>
+    /// Original code by andyman from Github:<br/>
+    /// https://gist.github.com/andyman/e58dea85cce23cccecff<br/>
+    /// Extra modifications by jcx from Github:<br/>
+    /// https://gist.github.com/jcx/93a3fc93531911add8a8<br/>
+    /// Taro Omiya made a couple of changes as well.<br/>
     /// Add this script to an object in the first scene of your game.
     /// It doesn't do anything for non-webplayer builds. For webplayer
     /// builds, it checks the domain to make sure it contains at least
@@ -30,7 +52,7 @@ namespace OmiyaGames
         public enum State
         {
             NotUsed = -1,
-            InProgress,
+            InProgress = 0,
             EncounteredError,
             DomainMatched,
             DomainDidntMatch
