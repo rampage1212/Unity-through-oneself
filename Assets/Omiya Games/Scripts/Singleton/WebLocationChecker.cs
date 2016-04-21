@@ -138,6 +138,24 @@ namespace OmiyaGames
         }
 
         #region Helper Methods
+        void ForceRedirect(StringBuilder buf)
+        {
+            if (string.IsNullOrEmpty(redirectURL) == false)
+            {
+                // Evaluate the javascript
+                Application.ExternalEval(GenerateRedirect(buf));
+            }
+        }
+
+        string GenerateRedirect(StringBuilder buf)
+        {
+            buf.Length = 0;
+            buf.Append("window.top.location='");
+            buf.Append(redirectURL);
+            buf.Append("';");
+            return buf.ToString();
+        }
+
 #if (UNITY_WEBPLAYER || UNITY_WEBGL)
         IEnumerator CheckDomainList()
         {
@@ -251,24 +269,6 @@ namespace OmiyaGames
                 }
             }
             return isTheCorrectHost;
-        }
-
-        void ForceRedirect(StringBuilder buf)
-        {
-            if (string.IsNullOrEmpty(redirectURL) == false)
-            {
-                // Evaluate the javascript
-                Application.ExternalEval(GenerateRedirect(buf));
-            }
-        }
-
-        string GenerateRedirect(StringBuilder buf)
-        {
-            buf.Length = 0;
-            buf.Append("window.top.location='");
-            buf.Append(redirectURL);
-            buf.Append("';");
-            return buf.ToString();
         }
 #endif
         #endregion
