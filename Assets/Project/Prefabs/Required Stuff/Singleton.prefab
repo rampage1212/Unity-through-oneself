@@ -733,6 +733,14 @@ MonoBehaviour:
   - newgrounds.com
   - kongregate.com
   - itch.io
+  remoteDomainListUrl: http://www.omiyagames.com/webplayer/domains.txt
+  splitRemoteDomainListUrlBy:
+  - '
+
+'
+  - ','
+  waitObjects: []
+  forceRedirectIfDomainDoesntMatch: 1
   redirectURL: http://ludumdare.com/compo/ludum-dare-35/?action=preview&uid=20557
 --- !u!114 &11406140
 MonoBehaviour:
