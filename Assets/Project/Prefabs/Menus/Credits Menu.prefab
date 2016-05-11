@@ -590,7 +590,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Credits
+  m_Text: Through Oneself
 --- !u!114 &11438682
 MonoBehaviour:
   m_ObjectHideFlags: 1

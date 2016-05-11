@@ -17,6 +17,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         float m_StationaryTurnSpeed = 180;
         [SerializeField]
         float m_JumpPower = 12f;
+        [SerializeField]
+        [Range(0f, 1f)]
+        float m_ghostJumpGracePeriod = 0.2f;
         [Range(1f, 4f)]
         [SerializeField]
         float m_GravityMultiplier = 2f;
@@ -34,6 +37,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         LayerMask crouchLayerMask = ~0;
         [SerializeField]
         LayerMask groundLayerMask = ~0;
+
+        [Header("Particles")]
+        [SerializeField]
+        ParticleSystem jumpParticles = null;
+        [SerializeField]
+        ParticleSystem landParticles = null;
         //[Header("Walk Particles")]
         //[SerializeField]
         //ParticleSystem m_walkingParticles = null;
@@ -47,6 +56,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         const float k_Half = 0.5f;
         float m_TurnAmount;
         float m_ForwardAmount;
+        float m_lastGrounded = -1f;
         Vector3 m_GroundNormal;
         //Vector3 m_MoveDirection;
         float m_CapsuleHeight;
@@ -63,6 +73,50 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
         }
 
+        public bool IsGrounded
+        {
+            get
+            {
+                return m_IsGrounded;
+            }
+            private set
+            {
+                if(m_IsGrounded != value)
+                {
+                    m_IsGrounded = value;
+
+                    // Setup time from last grounded
+                    if (m_IsGrounded == true)
+                    {
+                        if (landParticles != null)
+                        {
+                            landParticles.Stop();
+                            landParticles.Play();
+                        }
+
+                        m_lastGrounded = -1f;
+                    }
+                    else
+                    {
+                        m_lastGrounded = Time.time;
+                    }
+                }
+            }
+        }
+
+        public bool CanJump
+        {
+            get
+            {
+                bool returnFlag = IsGrounded;
+                if((IsGrounded == false) && (m_lastGrounded > 0) && ((Time.time - m_lastGrounded) < m_ghostJumpGracePeriod))
+                {
+                    returnFlag = true;
+                }
+                return returnFlag;
+            }
+        }
+
         void Start()
         {
             m_Animator = GetComponent<Animator>();
@@ -70,6 +124,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Capsule = GetComponent<CapsuleCollider>();
             m_CapsuleHeight = m_Capsule.height;
             m_CapsuleCenter = m_Capsule.center;
+
+            m_IsGrounded = false;
+            m_lastGrounded = -1f;
 
             m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             m_OrigGroundCheckDistance = m_GroundCheckDistance;
@@ -95,11 +152,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             ApplyExtraTurnRotation();
 
             // control and velocity handling is different when grounded and airborne:
-            if (m_IsGrounded)
+            if (CanJump == true)
             {
-                HandleGroundedMovement(crouch, jump);
+                HandleJump(crouch, jump);
             }
-            else
+            if(IsGrounded == false)
             {
                 HandleAirborneMovement();
             }
@@ -117,7 +174,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         void HandleAerialMovement(ref Vector3 originalMove)
         {
-            if ((m_IsGrounded == false) && (m_AerialControlInfluence > 0))
+            if ((IsGrounded == false) && (m_AerialControlInfluence > 0))
             {
                 if (originalMove.sqrMagnitude > 0)
                 {
@@ -136,7 +193,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         //void UpdateParticles()
         //{
-        //    if (/*(m_IsGrounded == true) && */(m_ForwardAmount > m_MoveThreshold))
+        //    if (/*(IsGrounded == true) && */(m_ForwardAmount > m_MoveThreshold))
         //    {
         //        if(m_walkingParticles.isPlaying == false)
         //        {
@@ -154,7 +211,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         void ScaleCapsuleForCrouching(bool crouch)
         {
-            if (m_IsGrounded && crouch)
+            if (IsGrounded && crouch)
             {
                 if (m_Crouching) return;
                 m_Capsule.height = m_Capsule.height / 2f;
@@ -197,8 +254,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
             m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
             m_Animator.SetBool("Crouch", m_Crouching);
-            m_Animator.SetBool("OnGround", m_IsGrounded);
-            if (!m_IsGrounded)
+            m_Animator.SetBool("OnGround", IsGrounded);
+            if (!IsGrounded)
             {
                 m_Animator.SetFloat("Jump", m_Rigidbody.velocity.y);
             }
@@ -210,7 +267,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 Mathf.Repeat(
                     m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime + m_RunCycleLegOffset, 1);
             float jumpLeg = (runCycle < k_Half ? 1 : -1) * m_ForwardAmount;
-            if (m_IsGrounded)
+            if (IsGrounded)
             {
                 m_Animator.SetFloat("JumpLeg", jumpLeg);
                 if (OnFootStep != null)
@@ -230,7 +287,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             // the anim speed multiplier allows the overall speed of walking/running to be tweaked in the inspector,
             // which affects the movement speed because of the root motion.
-            if (m_IsGrounded && move.magnitude > 0)
+            if (IsGrounded && move.magnitude > 0)
             {
                 m_Animator.speed = m_AnimSpeedMultiplier;
             }
@@ -252,16 +309,23 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         }
 
 
-        void HandleGroundedMovement(bool crouch, bool jump)
+        void HandleJump(bool crouch, bool jump)
         {
             // check whether conditions are right to allow a jump:
-            if (jump && !crouch && m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
+            if (jump && !crouch && CanJump)
             {
                 // jump!
                 m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z);
-                m_IsGrounded = false;
+                IsGrounded = false;
+                m_lastGrounded = -1f;
                 m_Animator.applyRootMotion = false;
                 m_GroundCheckDistance = 0.1f;
+
+                if (jumpParticles != null)
+                {
+                    jumpParticles.Stop();
+                    jumpParticles.Play();
+                }
 
                 if (OnJump != null)
                 {
@@ -284,7 +348,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             // this allows us to modify the positional speed before it's applied.
             if (Time.deltaTime > 0)
             {
-                if (m_IsGrounded)
+                if (IsGrounded)
                 {
                     Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
                     //Vector3 additiveV = Vector3.zero;
@@ -311,17 +375,17 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             // it is also good to note that the transform position in the sample assets is at the base of the character
             if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, m_GroundCheckDistance, groundLayerMask))
             {
-                if ((m_IsGrounded == false) && (OnLand != null))
+                if ((IsGrounded == false) && (OnLand != null))
                 {
                     OnLand(this);
                 }
                 m_GroundNormal = hitInfo.normal;
-                m_IsGrounded = true;
+                IsGrounded = true;
                 m_Animator.applyRootMotion = true;
             }
             else
             {
-                m_IsGrounded = false;
+                IsGrounded = false;
                 m_GroundNormal = Vector3.up;
                 m_Animator.applyRootMotion = false;
             }

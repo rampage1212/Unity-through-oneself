@@ -46,6 +46,10 @@ namespace OmiyaGames
         [Header("Behavior")]
         [SerializeField]
         bool pauseOnStart = false;
+        [SerializeField]
+        bool onlyAppearOnWebplayer = false;
+        [SerializeField]
+        bool requireClickToStart = false;
 
         System.Action<float> checkInput = null;
 
@@ -53,7 +57,12 @@ namespace OmiyaGames
         {
             get
             {
-                return Type.DefaultManagedMenu;
+                Type returnType = Type.ManagedMenu;
+                if ((Singleton.Instance.IsWebplayer == true) || (onlyAppearOnWebplayer == false))
+                {
+                    returnType = Type.DefaultManagedMenu;
+                }
+                return returnType;
             }
         }
 
@@ -123,7 +132,7 @@ namespace OmiyaGames
 
         void CheckForAnyKey(float deltaTime)
         {
-            if(Input.anyKeyDown == true)
+            if((Input.anyKeyDown == true) && (requireClickToStart == false))
             {
                 Hide();
             }
