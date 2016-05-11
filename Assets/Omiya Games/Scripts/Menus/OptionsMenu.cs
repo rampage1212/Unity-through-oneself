@@ -53,7 +53,7 @@ namespace OmiyaGames
             public void Setup(float volume, bool mute)
             {
                 volumeSlider.value = volume;
-                volumePercentLabel.text = Percent(volume, volumeSlider.minValue, volumeSlider.maxValue, MinimumDisplayedVolume, MaximumDisplayedVolume);
+                volumePercentLabel.text = Percent(volume);
                 volumeSlider.interactable = !mute;
                 checkBoxMark.enabled = mute;
             }
@@ -163,7 +163,7 @@ namespace OmiyaGames
             if (inSetupMode == false)
             {
                 BackgroundMusic.GlobalVolume = musicControls.volumeSlider.value;
-                musicControls.volumePercentLabel.text = Percent(BackgroundMusic.GlobalVolume, musicControls.MinValue, musicControls.MaxValue, MinimumDisplayedVolume, MaximumDisplayedVolume);
+                musicControls.volumePercentLabel.text = Percent(BackgroundMusic.GlobalVolume);
             }
         }
 
@@ -172,7 +172,7 @@ namespace OmiyaGames
             if (inSetupMode == false)
             {
                 SoundEffect.GlobalVolume = soundEffectsControls.volumeSlider.value;
-                soundEffectsControls.volumePercentLabel.text = Percent(SoundEffect.GlobalVolume, soundEffectsControls.MinValue, soundEffectsControls.MaxValue, MinimumDisplayedVolume, MaximumDisplayedVolume);
+                soundEffectsControls.volumePercentLabel.text = Percent(SoundEffect.GlobalVolume);
             }
         }
         
@@ -232,11 +232,9 @@ namespace OmiyaGames
         }
         #endregion
 
-        static string Percent(float val, float minValue, float maxValue, float minDisplay, float maxDisplay)
+        static string Percent(float val)
         {
-            float display = Mathf.InverseLerp(minValue, maxValue, val);
-            display = Mathf.Lerp(minDisplay, maxDisplay, display);
-            return display.ToString("0%");
+            return val.ToString("0%");
         }
 
         void CheckResetSavedDataConfirmation(IMenu menu)
