@@ -48,6 +48,8 @@ namespace OmiyaGames
         bool pauseOnStart = false;
         [SerializeField]
         bool onlyAppearOnWebplayer = false;
+        [SerializeField]
+        bool requireClickToStart = false;
 
         System.Action<float> checkInput = null;
 
@@ -130,7 +132,7 @@ namespace OmiyaGames
 
         void CheckForAnyKey(float deltaTime)
         {
-            if(Input.anyKeyDown == true)
+            if((Input.anyKeyDown == true) && (requireClickToStart == false))
             {
                 Hide();
             }

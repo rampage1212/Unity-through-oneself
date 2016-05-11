@@ -88,8 +88,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                     // Setup time from last grounded
                     if (m_IsGrounded == true)
                     {
-                        landParticles.Stop();
-                        landParticles.Play();
+                        if (landParticles != null)
+                        {
+                            landParticles.Stop();
+                            landParticles.Play();
+                        }
+
                         m_lastGrounded = -1f;
                     }
                     else
@@ -308,10 +312,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         void HandleJump(bool crouch, bool jump)
         {
             // check whether conditions are right to allow a jump:
-            if (jump == true)
-            {
-                Debug.Log("Hit Jump. CanJump: " + CanJump + ", IsGrounded: " + IsGrounded);
-            }
             if (jump && !crouch && CanJump)
             {
                 // jump!
@@ -321,8 +321,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 m_Animator.applyRootMotion = false;
                 m_GroundCheckDistance = 0.1f;
 
-                jumpParticles.Stop();
-                jumpParticles.Play();
+                if (jumpParticles != null)
+                {
+                    jumpParticles.Stop();
+                    jumpParticles.Play();
+                }
 
                 if (OnJump != null)
                 {
