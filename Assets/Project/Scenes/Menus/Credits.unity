@@ -42,7 +42,7 @@ LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
   m_GIWorkflowMode: 0
-  m_LightmapsMode: 1
+  m_LightmapsMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -1502,6 +1502,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -1514,6 +1515,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &144342643
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1844,6 +1847,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -1856,6 +1860,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &195873213
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2383,6 +2389,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -2395,6 +2402,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &271203792
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2725,6 +2734,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -2737,6 +2747,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &342321155
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3313,6 +3325,48 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.05243942, y: 0.00050020963, z: 0.008477181}
     m_Extent: {x: 0.14007622, y: 0.1073173, z: 0.12590541}
   m_DirtyAABB: 0
+--- !u!1001 &394195693
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 433686, guid: 20d969b5760c649d7ac1ced95d4d7fb0, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 433686, guid: 20d969b5760c649d7ac1ced95d4d7fb0, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 433686, guid: 20d969b5760c649d7ac1ced95d4d7fb0, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 433686, guid: 20d969b5760c649d7ac1ced95d4d7fb0, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 433686, guid: 20d969b5760c649d7ac1ced95d4d7fb0, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 433686, guid: 20d969b5760c649d7ac1ced95d4d7fb0, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 433686, guid: 20d969b5760c649d7ac1ced95d4d7fb0, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 433686, guid: 20d969b5760c649d7ac1ced95d4d7fb0, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 20d969b5760c649d7ac1ced95d4d7fb0, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &413430110
 GameObject:
   m_ObjectHideFlags: 0
@@ -3397,6 +3451,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -3409,6 +3464,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &413430115
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4411,6 +4468,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -4423,6 +4481,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &486634925
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4753,6 +4813,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -4765,6 +4826,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &548858273
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6132,6 +6195,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -6144,6 +6208,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &771996841
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6870,6 +6936,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -6882,6 +6949,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &841600663
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7411,6 +7480,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -7423,6 +7493,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &882788627
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7555,6 +7627,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -7567,6 +7640,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &890123511
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7728,6 +7803,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 14
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 1.5
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -7740,6 +7816,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 6401
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!136 &906075811
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8416,6 +8494,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -8428,6 +8507,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &933807293
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8825,6 +8906,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -8837,6 +8919,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &974186615
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9036,6 +9120,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -9048,6 +9133,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &984914262
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10110,6 +10197,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -10122,6 +10210,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &1083798413
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10387,6 +10477,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -10399,6 +10490,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &1122701007
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11060,6 +11153,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -11072,6 +11166,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &1213971594
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11960,6 +12056,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -11972,6 +12069,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &1358576100
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12205,6 +12304,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -12217,6 +12317,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &1398386136
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13631,6 +13733,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -13643,6 +13746,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &1532392865
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14568,6 +14673,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -14580,6 +14686,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &1617584581
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17015,6 +17123,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -17027,6 +17136,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &1980345752
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17105,7 +17216,7 @@ Transform:
   - {fileID: 1675445523}
   - {fileID: 120591549}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1 &1991505317
 GameObject:
   m_ObjectHideFlags: 0
@@ -18002,6 +18113,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -18014,6 +18126,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &2096424432
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18185,7 +18299,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22417754, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 877.5214
+      value: 1055.2992
       objectReference: {fileID: 0}
     - target: {fileID: 22417754, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -18193,7 +18307,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22417754, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1755.0428
+      value: 2110.5984
       objectReference: {fileID: 0}
     - target: {fileID: 22417754, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.y
@@ -18209,7 +18323,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22441504, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 877.5214
+      value: 1055.2992
       objectReference: {fileID: 0}
     - target: {fileID: 22441504, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -18217,7 +18331,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22441504, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1755.0428
+      value: 2110.5984
       objectReference: {fileID: 0}
     - target: {fileID: 22441504, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.y
@@ -18233,7 +18347,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22495700, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 877.5214
+      value: 1055.2992
       objectReference: {fileID: 0}
     - target: {fileID: 22495700, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -18241,7 +18355,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22495700, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1755.0428
+      value: 2110.5984
       objectReference: {fileID: 0}
     - target: {fileID: 22495700, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.y
@@ -18257,7 +18371,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22458130, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 877.5214
+      value: 1055.2992
       objectReference: {fileID: 0}
     - target: {fileID: 22458130, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -18265,7 +18379,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22458130, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1755.0428
+      value: 2110.5984
       objectReference: {fileID: 0}
     - target: {fileID: 22458130, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.y
@@ -18281,7 +18395,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22424096, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 877.5214
+      value: 1055.2992
       objectReference: {fileID: 0}
     - target: {fileID: 22424096, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -18289,7 +18403,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22424096, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1755.0428
+      value: 2110.5984
       objectReference: {fileID: 0}
     - target: {fileID: 22424096, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.y
@@ -18305,7 +18419,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22451268, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 877.5214
+      value: 1055.2992
       objectReference: {fileID: 0}
     - target: {fileID: 22451268, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -18313,7 +18427,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22451268, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1755.0428
+      value: 2110.5984
       objectReference: {fileID: 0}
     - target: {fileID: 22451268, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.y
@@ -18329,7 +18443,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22420186, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 877.5214
+      value: 1055.2992
       objectReference: {fileID: 0}
     - target: {fileID: 22420186, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -18337,7 +18451,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22420186, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1755.0428
+      value: 2110.5984
       objectReference: {fileID: 0}
     - target: {fileID: 22420186, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.y
@@ -18353,7 +18467,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22497638, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 877.5214
+      value: 1055.2992
       objectReference: {fileID: 0}
     - target: {fileID: 22497638, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -18361,7 +18475,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22497638, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1755.0428
+      value: 2110.5984
       objectReference: {fileID: 0}
     - target: {fileID: 22497638, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.y
@@ -18377,7 +18491,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22433760, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 877.5214
+      value: 1055.2992
       objectReference: {fileID: 0}
     - target: {fileID: 22433760, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -18385,7 +18499,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22433760, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1755.0428
+      value: 2110.5984
       objectReference: {fileID: 0}
     - target: {fileID: 22433760, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.y
@@ -18401,7 +18515,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22463950, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 877.5214
+      value: 1055.2992
       objectReference: {fileID: 0}
     - target: {fileID: 22463950, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -18409,7 +18523,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22463950, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1755.0428
+      value: 2110.5984
       objectReference: {fileID: 0}
     - target: {fileID: 22463950, guid: 1f32799849f380b4a8466f96067994b7, type: 2}
       propertyPath: m_SizeDelta.y
@@ -18638,6 +18752,7 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 12
+  m_ghostJumpGracePeriod: 0.2
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
@@ -18650,6 +18765,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 4097
+  jumpParticles: {fileID: 0}
+  landParticles: {fileID: 0}
 --- !u!54 &2116328687
 Rigidbody:
   m_ObjectHideFlags: 0
