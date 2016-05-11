@@ -733,6 +733,10 @@ MonoBehaviour:
   - newgrounds.com
   - kongregate.com
   - itch.io
+  remoteDomainListUrl: 
+  splitRemoteDomainListUrlBy: 2c00
+  waitObjects: []
+  forceRedirectIfDomainDoesntMatch: 1
   redirectURL: http://ludumdare.com/compo/ludum-dare-35/?action=preview&uid=20557
 --- !u!114 &11406140
 MonoBehaviour:
@@ -815,37 +819,45 @@ MonoBehaviour:
     scenePath: Assets/Project/Scenes/Menus/Splash.unity
     displayName: Splash
     cursorMode: 0
+    cursorModeWeb: 0
     revertTimeScale: 1
   mainMenu:
     scenePath: Assets/Project/Scenes/Menus/Main Menu.unity
     displayName: Main Menu
     cursorMode: 0
+    cursorModeWeb: 0
     revertTimeScale: 1
   credits:
     scenePath: Assets/Project/Scenes/Menus/Credits.unity
     displayName: Credits
     cursorMode: 0
+    cursorModeWeb: 0
     revertTimeScale: 1
   levels:
   - scenePath: Assets/Project/Scenes/Tutorial 1.unity
     displayName: Level 1
     cursorMode: 1
+    cursorModeWeb: 0
     revertTimeScale: 1
   - scenePath: Assets/Project/Scenes/Tutorial 2.unity
     displayName: Level 2
     cursorMode: 1
+    cursorModeWeb: 0
     revertTimeScale: 1
   - scenePath: Assets/Project/Scenes/Switches 3.unity
     displayName: Level 3
     cursorMode: 1
+    cursorModeWeb: 0
     revertTimeScale: 1
   - scenePath: Assets/Project/Scenes/Blocks 4.unity
     displayName: Level 4
     cursorMode: 1
+    cursorModeWeb: 0
     revertTimeScale: 1
   - scenePath: Assets/Project/Scenes/Blocks 5.unity
     displayName: Level 5
     cursorMode: 1
+    cursorModeWeb: 0
     revertTimeScale: 1
 --- !u!114 &11428920
 MonoBehaviour:
