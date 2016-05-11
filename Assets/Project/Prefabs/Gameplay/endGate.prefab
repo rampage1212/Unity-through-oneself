@@ -371,7 +371,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 10752
+    m_Bits: 4294966270
   m_Lightmapping: 2
   m_BounceIntensity: 2
   m_ShadowRadius: 0

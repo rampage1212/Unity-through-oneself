@@ -33,7 +33,7 @@ RenderSettings:
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
-  m_ReflectionBounces: 1
+  m_ReflectionBounces: 2
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
@@ -41,7 +41,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -58,15 +58,16 @@ LightmapSettings:
     m_BakeResolution: 40
     m_TextureWidth: 1024
     m_TextureHeight: 1024
-    m_AOMaxDistance: 1
+    m_AOMaxDistance: 5
     m_Padding: 2
-    m_CompAOExponent: 0
+    m_CompAOExponent: 2
     m_LightmapParameters: {fileID: 0}
     m_TextureCompression: 1
-    m_FinalGather: 0
+    m_FinalGather: 1
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000026, guid: 0f10dce6c1589499296b2a77eae08a4d,
+    type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
 NavMeshSettings:
@@ -627,7 +628,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 442732, guid: 4ccf4087c59437d448d516c29a767dc2, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11497200, guid: 4ccf4087c59437d448d516c29a767dc2, type: 2}
       propertyPath: cameraYAngleRange.x
@@ -2918,7 +2919,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 442732, guid: 4ccf4087c59437d448d516c29a767dc2, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 144828, guid: 4ccf4087c59437d448d516c29a767dc2, type: 2}
       propertyPath: m_Name
@@ -3232,7 +3233,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22409382, guid: 717012cc6b3614d42a4dda1359aeec19, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 687.17957
+      value: 319.89392
       objectReference: {fileID: 0}
     - target: {fileID: 22409382, guid: 717012cc6b3614d42a4dda1359aeec19, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -3240,15 +3241,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22409382, guid: 717012cc6b3614d42a4dda1359aeec19, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1354.3591
+      value: 619.78784
       objectReference: {fileID: 0}
     - target: {fileID: 22409382, guid: 717012cc6b3614d42a4dda1359aeec19, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 34.188034
+      value: 70.02653
       objectReference: {fileID: 0}
     - target: {fileID: 22462838, guid: 717012cc6b3614d42a4dda1359aeec19, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 54.188034
+      value: 90.02653
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 717012cc6b3614d42a4dda1359aeec19, type: 2}
@@ -3855,7 +3856,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 442732, guid: 4ccf4087c59437d448d516c29a767dc2, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 144828, guid: 4ccf4087c59437d448d516c29a767dc2, type: 2}
       propertyPath: m_Name
