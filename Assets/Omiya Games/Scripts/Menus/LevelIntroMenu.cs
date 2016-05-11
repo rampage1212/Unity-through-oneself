@@ -77,7 +77,7 @@ namespace OmiyaGames
         protected virtual void Start()
         {
             // Setup all labels, if available
-            if (levelNameLabel != null)
+            if ((levelNameLabel != null) && (Singleton.Get<SceneTransitionManager>().CurrentScene != null))
             {
                 levelNameLabel.text = Singleton.Get<SceneTransitionManager>().CurrentScene.DisplayName;
             }

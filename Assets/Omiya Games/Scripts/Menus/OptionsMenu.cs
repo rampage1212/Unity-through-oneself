@@ -40,6 +40,9 @@ namespace OmiyaGames
     [RequireComponent(typeof(SoundEffect))]
     public class OptionsMenu : IMenu
     {
+        public const float MinimumDisplayedVolume = 0.01f;
+        public const float MaximumDisplayedVolume = 1f;
+
         [System.Serializable]
         public struct AudioControls
         {
@@ -50,9 +53,25 @@ namespace OmiyaGames
             public void Setup(float volume, bool mute)
             {
                 volumeSlider.value = volume;
-                volumePercentLabel.text = Percent(volume);
+                volumePercentLabel.text = Percent(volume, volumeSlider.minValue, volumeSlider.maxValue, MinimumDisplayedVolume, MaximumDisplayedVolume);
                 volumeSlider.interactable = !mute;
                 checkBoxMark.enabled = mute;
+            }
+
+            public float MinValue
+            {
+                get
+                {
+                    return volumeSlider.minValue;
+                }
+            }
+
+            public float MaxValue
+            {
+                get
+                {
+                    return volumeSlider.maxValue;
+                }
             }
         }
 
@@ -144,7 +163,7 @@ namespace OmiyaGames
             if (inSetupMode == false)
             {
                 BackgroundMusic.GlobalVolume = musicControls.volumeSlider.value;
-                musicControls.volumePercentLabel.text = Percent(BackgroundMusic.GlobalVolume);
+                musicControls.volumePercentLabel.text = Percent(BackgroundMusic.GlobalVolume, musicControls.MinValue, musicControls.MaxValue, MinimumDisplayedVolume, MaximumDisplayedVolume);
             }
         }
 
@@ -153,7 +172,7 @@ namespace OmiyaGames
             if (inSetupMode == false)
             {
                 SoundEffect.GlobalVolume = soundEffectsControls.volumeSlider.value;
-                soundEffectsControls.volumePercentLabel.text = Percent(SoundEffect.GlobalVolume);
+                soundEffectsControls.volumePercentLabel.text = Percent(SoundEffect.GlobalVolume, soundEffectsControls.MinValue, soundEffectsControls.MaxValue, MinimumDisplayedVolume, MaximumDisplayedVolume);
             }
         }
         
@@ -213,9 +232,11 @@ namespace OmiyaGames
         }
         #endregion
 
-        static string Percent(float val)
+        static string Percent(float val, float minValue, float maxValue, float minDisplay, float maxDisplay)
         {
-            return val.ToString("0%");
+            float display = Mathf.InverseLerp(minValue, maxValue, val);
+            display = Mathf.Lerp(minDisplay, maxDisplay, display);
+            return display.ToString("0%");
         }
 
         void CheckResetSavedDataConfirmation(IMenu menu)
