@@ -534,10 +534,6 @@ MonoBehaviour:
   colorRange: {r: 0.20784314, g: 0.21176471, b: 0.29803923, a: 1}
   allRenderers:
   - {fileID: 2397360}
-  - {fileID: 2383188}
-  - {fileID: 2372222}
-  - {fileID: 2364534}
-  - {fileID: 2328748}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

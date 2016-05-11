@@ -46,6 +46,8 @@ namespace OmiyaGames
         [Header("Behavior")]
         [SerializeField]
         bool pauseOnStart = false;
+        [SerializeField]
+        bool onlyAppearOnWebplayer = false;
 
         System.Action<float> checkInput = null;
 
@@ -53,7 +55,12 @@ namespace OmiyaGames
         {
             get
             {
-                return Type.DefaultManagedMenu;
+                Type returnType = Type.ManagedMenu;
+                if ((Singleton.Instance.IsWebplayer == true) || (onlyAppearOnWebplayer == false))
+                {
+                    returnType = Type.DefaultManagedMenu;
+                }
+                return returnType;
             }
         }
 
