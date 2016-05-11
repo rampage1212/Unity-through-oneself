@@ -66,7 +66,8 @@ LightmapSettings:
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000073, guid: 2a79f7f1e95db484aa5b56bfe0a532d5,
+    type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
 NavMeshSettings:
@@ -5565,7 +5566,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22409382, guid: 717012cc6b3614d42a4dda1359aeec19, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 925.1282
+      value: 320.2367
       objectReference: {fileID: 0}
     - target: {fileID: 22409382, guid: 717012cc6b3614d42a4dda1359aeec19, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -5573,15 +5574,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22409382, guid: 717012cc6b3614d42a4dda1359aeec19, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1830.2563
+      value: 620.4734
       objectReference: {fileID: 0}
     - target: {fileID: 22409382, guid: 717012cc6b3614d42a4dda1359aeec19, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 34.188034
+      value: 68.63905
       objectReference: {fileID: 0}
     - target: {fileID: 22462838, guid: 717012cc6b3614d42a4dda1359aeec19, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 54.188034
+      value: 88.63905
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 717012cc6b3614d42a4dda1359aeec19, type: 2}
