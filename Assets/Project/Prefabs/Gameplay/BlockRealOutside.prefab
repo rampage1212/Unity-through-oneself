@@ -844,7 +844,7 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  m_GroundCheckDistance: 1
+  m_GroundCheckDistance: 1.2
   thud: {fileID: 11433886}
   playThudIfVelocityDifference: 0.25
 --- !u!114 &11419740
