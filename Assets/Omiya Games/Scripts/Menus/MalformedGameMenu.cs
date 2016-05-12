@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Text;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System;
 
 namespace OmiyaGames
 {
-
     ///-----------------------------------------------------------------------
-    /// <copyright file="CreditsMenu.cs" company="Omiya Games">
+    /// <copyright file="MalformedGameMenu.cs" company="Omiya Games">
     /// The MIT License (MIT)
     /// 
     /// Copyright (c) 2014-2015 Omiya Games
@@ -29,10 +32,11 @@ namespace OmiyaGames
     /// THE SOFTWARE.
     /// </copyright>
     /// <author>Taro Omiya</author>
-    /// <date>5/18/2015</date>
+    /// <date>5/11/2016</date>
     ///-----------------------------------------------------------------------
     /// <summary>
-    /// Scrolling credits. You can retrieve this menu from the singleton script,
+    /// Dialog indicating this game may not be genuine.
+    /// You can retrieve this menu from the singleton script,
     /// <code>MenuManager</code>.
     /// </summary>
     /// <seealso cref="MenuManager"/>
@@ -41,21 +45,44 @@ namespace OmiyaGames
         public enum Reason
         {
             None = -1,
-            CannotConfirmGenuine = 0,
-            IsNotGenuine,
+            IsNotGenuine = 0,
             CannotConfirmDomain,
-            IsIncorrectDomain
+            IsIncorrectDomain,
+            JustTesting
         }
 
-        [Header("Components")]
-        [SerializeField]
-        Button defaultButton = null;
-        [SerializeField]
-        ScrollRect scrollable = null;
-        [SerializeField]
-        RectTransform content = null;
+        [System.Serializable]
+        public struct WebsiteInfo
+        {
+            [SerializeField]
+            string display;
+            [SerializeField]
+            string redirectTo;
 
-        System.Action<float> checkInput = null;
+            public void UpdateButton(WebsiteButton button)
+            {
+                button.DisplayedText = display;
+                button.RedirectTo = redirectTo;
+            }
+        }
+
+        [Header("First Option")]
+        [SerializeField]
+        WebsiteInfo websiteInfo;
+        [SerializeField]
+        Text reasonMessage = null;
+        [SerializeField]
+        WebsiteButton websiteButton = null;
+
+        [Header("Second Option")]
+        [SerializeField]
+        WebsiteInfo[] otherSites = null;
+        [SerializeField]
+        Text[] secondOptionSet = null;
+        [SerializeField]
+        WebsiteButton otherSitesButton = null;
+
+        readonly List<WebsiteButton> allSecondOptionButtons = new List<WebsiteButton>();
 
         public override Type MenuType
         {
@@ -69,28 +96,31 @@ namespace OmiyaGames
         {
             get
             {
-                return defaultButton.gameObject;
+                return websiteButton.gameObject;
             }
         }
 
-        public override void Show(System.Action<IMenu> stateChanged)
+        public override void Show(Action<IMenu> stateChanged)
         {
             // Call base function
             base.Show(stateChanged);
 
-            // Unlock the cursor
-            //SceneManager.CursorMode = CursorLockMode.None;
-
-            // Check if we've previously binded to the singleton's update function
-            if (checkInput != null)
+            // Setup the dialog
+            websiteInfo.UpdateButton(websiteButton);
+            if((otherSites != null) && (otherSites.Length > 0))
             {
-                Singleton.Instance.OnUpdate -= checkInput;
-                checkInput = null;
+                // Setup the second options
+                SetupSecondOptions();
             }
-
-            // Bind to Singleton's update function
-            checkInput = new System.Action<float>(CheckForAnyKey);
-            Singleton.Instance.OnUpdate += checkInput;
+            else
+            {
+                // Turn off everything related to the second options
+                for(int index = 0; index < secondOptionSet.Length; ++index)
+                {
+                    secondOptionSet[index].gameObject.SetActive(false);
+                }
+                otherSitesButton.gameObject.SetActive(false);
+            }
         }
 
         public override void Hide()
@@ -104,14 +134,6 @@ namespace OmiyaGames
             {
                 // Lock the cursor to what the scene is set to
                 SceneTransitionManager manager = Singleton.Get<SceneTransitionManager>();
-                //SceneManager.CursorMode = manager.CurrentScene.LockMode;
-
-                // Unbind to Singleton's update function
-                if (checkInput != null)
-                {
-                    Singleton.Instance.OnUpdate -= checkInput;
-                    checkInput = null;
-                }
 
                 // Return to the menu
                 manager.LoadMainMenu();
@@ -127,34 +149,74 @@ namespace OmiyaGames
                 webChecker = Singleton.Get<WebLocationChecker>();
             }
 
-            // FIXME: do something!
-            switch (reason)
+            // Update the reason for this dialog to appear
+            StringBuilder builder = new StringBuilder();
+            switch(reason)
             {
-                case Reason.CannotConfirmGenuine:
-                    break;
-                case Reason.IsNotGenuine:
-                    break;
-                case Reason.CannotConfirmDomain:
-                    if (webChecker != null)
-                    {
-
-                    }
-                    break;
                 case Reason.IsIncorrectDomain:
+                    builder.Append("Detected url, \"");
+                    builder.Append(webChecker.RetrievedHostName);
+                    builder.AppendLine(",\" does not match any of the domains we uploaded our game to.");
                     if (webChecker != null)
                     {
-
+                        ReadOnlyCollection<string> allDomains = webChecker.DomainList;
+                        for (int index = 0; index < allDomains.Count; ++index)
+                        {
+                            builder.Append("* ");
+                            builder.AppendLine(allDomains[index]);
+                        }
                     }
                     break;
+                case Reason.JustTesting:
+                    builder.Append("Just kidding, we're just testing this form, and whether it works or not!");
+                    break;
+                default:
+                    builder.Append("The test to confirm this game is genuine indicated it isn't.");
+                    break;
             }
+            reasonMessage.text = builder.ToString();
         }
 
-        void CheckForAnyKey(float deltaTime)
+        #region Helper Methods
+        void SetupSecondOptions()
         {
-            if (Input.anyKeyDown == true)
+            // Populate the list of buttons with at least one button
+            if (allSecondOptionButtons.Count <= 0)
             {
-                Hide();
+                allSecondOptionButtons.Add(otherSitesButton);
+            }
+
+            // Go through all the sites
+            int index = 0;
+            GameObject clone;
+            for (; index < otherSites.Length; ++index)
+            {
+                // Check if we have enough buttons
+                if (allSecondOptionButtons.Count <= index)
+                {
+                    // If not, create a new one
+                    clone = Instantiate<GameObject>(otherSitesButton.gameObject);
+                    allSecondOptionButtons.Add(clone.GetComponent<WebsiteButton>());
+
+                    // Position this button properly
+                    clone.transform.SetParent(otherSitesButton.transform.parent);
+                    clone.transform.localScale = Vector3.one;
+                    clone.transform.localRotation = Quaternion.identity;
+                    clone.transform.SetSiblingIndex(otherSitesButton.transform.GetSiblingIndex() + index);
+                }
+
+                // Setup this button
+                allSecondOptionButtons[index].gameObject.SetActive(true);
+                otherSites[index].UpdateButton(allSecondOptionButtons[index]);
+                
+            }
+
+            // Turn off the rest of the buttons
+            for (; index < allSecondOptionButtons.Count; ++index)
+            {
+                allSecondOptionButtons[index].gameObject.SetActive(false);
             }
         }
+        #endregion
     }
 }
