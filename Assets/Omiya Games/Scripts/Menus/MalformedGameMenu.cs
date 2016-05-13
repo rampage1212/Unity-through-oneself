@@ -156,16 +156,7 @@ namespace OmiyaGames
                 case Reason.IsIncorrectDomain:
                     builder.Append("Detected url, \"");
                     builder.Append(webChecker.RetrievedHostName);
-                    builder.AppendLine(",\" does not match any of the domains we uploaded our game to.");
-                    if (webChecker != null)
-                    {
-                        ReadOnlyCollection<string> allDomains = webChecker.DomainList;
-                        for (int index = 0; index < allDomains.Count; ++index)
-                        {
-                            builder.Append("* ");
-                            builder.AppendLine(allDomains[index]);
-                        }
-                    }
+                    builder.Append(",\" does not match any of the domains we uploaded our game to.");
                     break;
                 case Reason.JustTesting:
                     builder.Append("Just kidding, we're just testing this form, and whether it works or not!");
