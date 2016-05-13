@@ -7,11 +7,14 @@ public class TutorialTrigger : MonoBehaviour
     [SerializeField]
     string defaultMessage;
     [SerializeField]
+    int maxNumberOfTriggers = 0;
+    [Header("Camera-Related Message")]
+    [SerializeField]
     string cameraMessage;
     [SerializeField]
     Vector2 cameraYAngleRange = new Vector2(180f + 30f, 360f - 30f);
     [SerializeField]
-    int maxNumberOfTriggers = 0;
+    bool cameraInBetweenRange = true;
 
     ulong defaultPopUp = PopUpManager.InvalidId;
     ulong cameraPopUp = PopUpManager.InvalidId;
@@ -28,6 +31,33 @@ public class TutorialTrigger : MonoBehaviour
                 manager = Singleton.Get<MenuManager>();
             }
             return manager;
+        }
+    }
+
+    bool IsProperCameraAngle
+    {
+        get
+        {
+            bool returnFlag = false;
+            float cameraAngle = PlayerInfo.CameraController.transform.rotation.eulerAngles.y;
+            while (cameraAngle > 360f)
+            {
+                cameraAngle -= 360f;
+            }
+            while (cameraAngle < 0)
+            {
+                cameraAngle += 360f;
+            }
+
+            if(cameraInBetweenRange == true)
+            {
+                returnFlag = ((cameraAngle > cameraYAngleRange.x) && (cameraAngle < cameraYAngleRange.y));
+            }
+            else
+            {
+                returnFlag = ((cameraAngle < cameraYAngleRange.x) || (cameraAngle > cameraYAngleRange.y));
+            }
+            return returnFlag;
         }
     }
 
