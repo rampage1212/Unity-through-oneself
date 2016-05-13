@@ -968,7 +968,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 22438358}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.36501825
+  m_Size: 0.36967567
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1261,7 +1261,17 @@ MonoBehaviour:
     redirectTo: http://www.omiyagames.com/games/
   reasonMessage: {fileID: 11495214}
   websiteButton: {fileID: 11474742}
-  otherSites: []
+  otherSites:
+  - display: GameJolt
+    redirectTo: http://gamejolt.com/games/through-oneself/142011
+  - display: Newgrounds
+    redirectTo: http://www.newgrounds.com/portal/view/673587
+  - display: Itch.io
+    redirectTo: https://omiyagames.itch.io/through-oneself
+  - display: Kongregate
+    redirectTo: http://www.kongregate.com/games/OmiyaGames/through-oneself
+  - display: IndieDB
+    redirectTo: http://www.indiedb.com/games/through-oneself
   secondOptionSet:
   - {fileID: 11449936}
   - {fileID: 11434550}

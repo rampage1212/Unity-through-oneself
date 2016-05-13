@@ -3377,7 +3377,7 @@ MonoBehaviour:
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1900968186}
   m_HorizontalScrollbarVisibility: 0
-  m_VerticalScrollbarVisibility: 0
+  m_VerticalScrollbarVisibility: 1
   m_HorizontalScrollbarSpacing: 0
   m_VerticalScrollbarSpacing: 0
   m_OnValueChanged:
@@ -5428,6 +5428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08c1ad7fb31d9e4b8c87a11fc452d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceToBack: 1
 --- !u!95 &1182062134
 Animator:
   serializedVersion: 3
@@ -8208,8 +8209,8 @@ RectTransform:
   - {fileID: 2090189515}
   m_Father: {fileID: 523831286}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 37.5}
   m_SizeDelta: {x: 10, y: -115}
   m_Pivot: {x: 0.5, y: 0.5}

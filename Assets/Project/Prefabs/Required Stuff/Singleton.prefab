@@ -695,6 +695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simulateWebplayer: 0
+  simulateMalformedGame: 0
 --- !u!114 &11400340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -727,22 +728,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   domainMustContain:
-  - ludumdare.com
+  - localhost
+  - build.cloud.unity3d.com
   - omiyagames.com
+  - ludumdare.com
   - gamejolt.com
+  - itch.io
   - newgrounds.com
   - kongregate.com
-  - itch.io
-  - unity3d.com
-  remoteDomainListUrl: http://www.omiyagames.com/webplayer/domains.txt
+  remoteDomainListUrl: 
   splitRemoteDomainListUrlBy:
   - '
 
 '
   - ','
   waitObjects: []
-  forceRedirectIfDomainDoesntMatch: 1
-  redirectURL: http://ludumdare.com/compo/ludum-dare-35/?action=preview&uid=20557
+  forceRedirectIfDomainDoesntMatch: 0
+  redirectURL: 
 --- !u!114 &11406140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -875,6 +877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2551938a73f87424887bd15f359d4c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerRangeDb: {x: -40, y: 0}
   muteVolumeDb: -100
   mixer: {fileID: 24100000, guid: 63a239bdfb2dd4519b121d21aa1ed3fb, type: 2}
   backgroundMusicVolume:
