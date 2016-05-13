@@ -153,16 +153,19 @@ namespace OmiyaGames
             StringBuilder builder = new StringBuilder();
             switch(reason)
             {
+                case Reason.CannotConfirmDomain:
+                    builder.Append("Unable to confirm this game is hosted by a domain the developers uploaded our game to.");
+                    break;
                 case Reason.IsIncorrectDomain:
-                    builder.Append("Detected url, \"");
+                    builder.Append("The detected url, \"");
                     builder.Append(webChecker.RetrievedHostName);
-                    builder.Append(",\" does not match any of the domains we uploaded our game to.");
+                    builder.Append(",\" does not match any of the domains the developers our game to.");
                     break;
                 case Reason.JustTesting:
-                    builder.Append("Just kidding, we're just testing this form, and whether it works or not!");
+                    builder.Append("Just kidding, the developers are just testing this form, and whether it works or not!");
                     break;
                 default:
-                    builder.Append("The test to confirm this game is genuine indicated it isn't.");
+                    builder.Append("Test confirms this game is not genuine.");
                     break;
             }
             reasonMessage.text = builder.ToString();

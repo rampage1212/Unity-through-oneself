@@ -730,18 +730,11 @@ MonoBehaviour:
   domainMustContain:
   - localhost
   - build.cloud.unity3d.com
-  - omiyagames.com
-  - ludumdare.com
-  - gamejolt.com
-  - itch.io
-  - newgrounds.com
-  - kongregate.com
-  remoteDomainListUrl: 
+  remoteDomainListUrl: http://www.omiyagames.com/webplayer/domains.txt
   splitRemoteDomainListUrlBy:
   - '
 
 '
-  - ','
   waitObjects: []
   forceRedirectIfDomainDoesntMatch: 0
   redirectURL: 
