@@ -7,8 +7,6 @@
 //#define BUILD_TO_MAJOR_MOBILE_OS
 
 #define BUILD_TO_WEBGL
-//#define BUILD_TO_WEBPLAYER
-//#define BUILD_TO_STREAMED_WEBPLAYER
 
 using UnityEngine;
 using UnityEditor;
@@ -16,6 +14,7 @@ using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace OmiyaGames
 {
@@ -81,6 +80,10 @@ namespace OmiyaGames
         /// The folder where the game will be built to.
         /// </summary>
         private const string BuildDirectory = "Builds";
+        /// <summary>
+        /// The maximum WebGL build name
+        /// </summary>
+        public const int MaxSlugLength = 45;
 
         /// <summary>
         /// Function that builds for all platforms.  Edit this function if you want
@@ -102,16 +105,6 @@ namespace OmiyaGames
 #if BUILD_TO_WEBGL
             // Build for the Web platform
             PerformWebGLBuild();
-#endif
-
-#if BUILD_TO_WEBPLAYER
-        // Build for the Web platform
-        PerformWebplayerBuild();
-#endif
-
-#if BUILD_TO_STREAMED_WEBPLAYER
-        // Build for the Web platform
-        PerformStreamedWebplayerBuild();
 #endif
         }
 
@@ -171,24 +164,6 @@ namespace OmiyaGames
         public static void PerformWebGLBuild()
         {
             GenericBuild("WebGL", "", BuildTarget.WebGL);
-        }
-
-        /// <summary>
-        /// Function that builds for Web.
-        /// </summary>
-        [MenuItem("Omiya Games/Build For/Streamed Webplayer")]
-        public static void PerformStreamedWebplayerBuild()
-        {
-            GenericBuild("Streamed Webplayer", "", BuildTarget.WebPlayerStreamed);
-        }
-
-        /// <summary>
-        /// Function that builds for Web.
-        /// </summary>
-        [MenuItem("Omiya Games/Build For/Webplayer")]
-        public static void PerformWebplayerBuild()
-        {
-            GenericBuild("Webplayer", "", BuildTarget.WebPlayer);
         }
 
         /// <summary>
@@ -296,7 +271,7 @@ namespace OmiyaGames
         private static void GenericBuild(string platformName, string fileExtension, BuildTarget buildTarget)
         {
             // Sanitize the product name
-            string sanitizedProductName = InvalidFileNameCharacters.Replace(PlayerSettings.productName, "_");
+            string sanitizedProductName = InvalidFileNameCharacters.Replace(RemoveDiacritics(PlayerSettings.productName), "");
             if (string.IsNullOrEmpty(sanitizedProductName) == true)
             {
                 throw new Exception("Product name is not available!");
@@ -319,13 +294,10 @@ namespace OmiyaGames
 
             switch (buildTarget)
             {
-                case BuildTarget.WebPlayer:
-                case BuildTarget.WebPlayerStreamed:
-                    // Append the file extension, if available
-                    if (string.IsNullOrEmpty(fileExtension) == false)
-                    {
-                        FileNameGenerator.Append(fileExtension);
-                    }
+                case BuildTarget.WebGL:
+                    // Append the slugged product name
+                    FileNameGenerator.Append('\\');
+                    FileNameGenerator.Append(GenerateSlug(sanitizedProductName));
                     break;
                 default:
                     // Append the sanitized product name
@@ -342,6 +314,10 @@ namespace OmiyaGames
 
             // Generate the build
             GenericBuild(FileNameGenerator.ToString(), buildTarget);
+
+            // Printing where the build was created
+            FileNameGenerator.Insert(0, "Created build to: ");
+            Debug.Log(FileNameGenerator.ToString());
         }
 
         /// <summary>
@@ -354,7 +330,7 @@ namespace OmiyaGames
 
             // Determine the best build option
             BuildOptions buildOption = OptionsAll;
-            if (buildTarget == BuildTarget.WebPlayer)
+            if (buildTarget == BuildTarget.WebGL)
             {
                 buildOption |= OptionsWeb;
             }
@@ -382,6 +358,49 @@ namespace OmiyaGames
                 }
             }
             return EditorScenes.ToArray();
+        }
+
+        /// <summary>
+        /// Taken from http://predicatet.blogspot.com/2009/04/improved-c-slug-generator-or-how-to.html
+        /// </summary>
+        public static string GenerateSlug(string originalString)
+        {
+            // Remove invalid chars
+            string returnSlug = Regex.Replace(originalString.ToLower(), @"[^a-z0-9\s-]", "");
+
+            // Convert multiple spaces into one space
+            returnSlug = Regex.Replace(returnSlug, @"\s+", " ").Trim();
+
+            // Trim the length of the slug down to MaxSlugLength characters
+            if(returnSlug.Length > MaxSlugLength)
+            {
+                returnSlug = returnSlug.Substring(0, MaxSlugLength).Trim();
+            }
+
+            // Replace spaces with hyphens
+            returnSlug = Regex.Replace(returnSlug, @"\s", "-");
+
+            return returnSlug;
+        }
+
+        /// <summary>
+        /// Taken from http://archives.miloush.net/michkap/archive/2007/05/14/2629747.html
+        /// </summary>
+        public static string RemoveDiacritics(string text)
+        {
+            string normalizedString = text.Normalize(NormalizationForm.FormD);
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (int index = 0; index < normalizedString.Length; ++index)
+            {
+                UnicodeCategory unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(normalizedString[index]);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(normalizedString[index]);
+                }
+            }
+
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
     }
 }
