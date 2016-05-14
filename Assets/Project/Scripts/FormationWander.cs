@@ -3,11 +3,12 @@ using System.Collections.Generic;
 
 public class FormationWander : IFormation
 {
+    public const float PercentOfNpcsInWebGl = 0.5f;
+
     [SerializeField]
     Vector2 dimensions;
     [SerializeField]
-    NonPlayableCharacter[] allNpcs;
-
+    List<NonPlayableCharacter> allNpcs;
 
     Dictionary<MoveToTargetCharacterControl, Transform> allControllers = new Dictionary<MoveToTargetCharacterControl, Transform>();
     int updateIndex;
@@ -15,30 +16,53 @@ public class FormationWander : IFormation
     [ContextMenu("Populate allNpcs")]
     void PopulateNpcs()
     {
-        allNpcs = GetComponentsInChildren<NonPlayableCharacter>();
+        allNpcs.Clear();
+        allNpcs.AddRange(GetComponentsInChildren<NonPlayableCharacter>());
     }
 
     void Start()
     {
-        allControllers.Clear();
+        // Check if WebGL build
+#if UNITY_WEBGL
+        // Shuffle the NPC list
+        OmiyaGames.Utility.ShuffleList<NonPlayableCharacter>(allNpcs);
 
-        GameObject newObject = null;
-        foreach(NonPlayableCharacter npc in allNpcs)
+        // Check how many NPCs we want to delete
+        int reduceNpcsTo = Mathf.RoundToInt(allNpcs.Count * PercentOfNpcsInWebGl) + 1;
+
+        // Go through the list from the back (more efficient than removing elements from the fron)
+        for (updateIndex = (allNpcs.Count - 1); updateIndex > (allNpcs.Count - reduceNpcsTo); --updateIndex)
         {
-            if (npc != null)
+            // Destroy the last NPC in the list
+            if (allNpcs[updateIndex] != null)
             {
-                newObject = new GameObject(npc.name + " Target");
-                newObject.transform.SetParent(transform);
-                allControllers.Add(npc.CachedAi, newObject.transform);
+                Destroy(allNpcs[updateIndex].gameObject);
+            }
 
-                UpdateBreadcrumbs(npc.CachedAi);
+            // Pop this entry off the list
+            allNpcs.RemoveAt(updateIndex);
+        }
+#endif
+
+        // Make a transform for each NPC to walk towards
+        GameObject newObject = null;
+        allControllers.Clear();
+        for (updateIndex = 0; updateIndex < allNpcs.Count; ++updateIndex)
+        {
+            if (allNpcs[updateIndex] != null)
+            {
+                newObject = new GameObject(allNpcs[updateIndex].name + " Target");
+                newObject.transform.SetParent(transform);
+                allControllers.Add(allNpcs[updateIndex].CachedAi, newObject.transform);
+
+                UpdateBreadcrumbs(allNpcs[updateIndex].CachedAi);
             }
         }
     }
 
     void Update()
     {
-        for (updateIndex = 0; updateIndex < allNpcs.Length; ++updateIndex)
+        for (updateIndex = 0; updateIndex < allNpcs.Count; ++updateIndex)
         {
             if (allNpcs[updateIndex] != null)
             {
