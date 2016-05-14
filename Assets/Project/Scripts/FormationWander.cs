@@ -28,12 +28,13 @@ public class FormationWander : IFormation
         OmiyaGames.Utility.ShuffleList<NonPlayableCharacter>(allNpcs);
 
         // Check how many NPCs we want to delete
-        int reduceNpcsTo = Mathf.RoundToInt(allNpcs.Count * PercentOfNpcsInWebGl) + 1;
+        int reduceNpcsTo = Mathf.RoundToInt(allNpcs.Count * PercentOfNpcsInWebGl);
 
         // Go through the list from the back (more efficient than removing elements from the fron)
-        for (updateIndex = (allNpcs.Count - 1); updateIndex > (allNpcs.Count - reduceNpcsTo); --updateIndex)
+        while(allNpcs.Count > reduceNpcsTo)
         {
             // Destroy the last NPC in the list
+            updateIndex = (allNpcs.Count - 1);
             if (allNpcs[updateIndex] != null)
             {
                 Destroy(allNpcs[updateIndex].gameObject);
