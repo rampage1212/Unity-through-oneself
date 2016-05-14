@@ -96,17 +96,7 @@ public class TutorialTrigger : MonoBehaviour
     {
         if((isTriggered == true) && (string.IsNullOrEmpty(cameraMessage) == false))
         {
-            float cameraAngle = PlayerInfo.CameraController.transform.rotation.eulerAngles.y;
-            while (cameraAngle > 360f)
-            {
-                cameraAngle -= 360f;
-            }
-            while (cameraAngle < 0)
-            {
-                cameraAngle += 360f;
-            }
-
-            if ((cameraAngle > cameraYAngleRange.x) && (cameraAngle < cameraYAngleRange.y))
+            if (IsProperCameraAngle == true)
             {
                 if(cameraPopUp == PopUpManager.InvalidId)
                 {
