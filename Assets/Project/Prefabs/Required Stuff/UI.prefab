@@ -3592,12 +3592,12 @@ MonoBehaviour:
   m_EyeAdaptation:
     enabled: 0
     middleGrey: 0.5
-    min: -3
-    max: 3
-    speed: 1.5
+    min: -0.5
+    max: 0.5
+    speed: 20
     showDebug: 0
   m_Tonemapping:
-    enabled: 1
+    enabled: 0
     tonemapper: 4
     exposure: 1.4
     curve:
