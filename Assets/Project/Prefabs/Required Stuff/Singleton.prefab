@@ -729,7 +729,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   domainMustContain:
   - localhost
-  remoteDomainListUrl: TemplateData/domains.txt
+  - build.cloud.unity3d.com
+  remoteDomainListUrl: TemplateData/domains
+  remoteListFileType: 1
   splitRemoteDomainListUrlBy:
   - '
 
