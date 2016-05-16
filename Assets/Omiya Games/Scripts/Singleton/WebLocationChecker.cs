@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -30,7 +31,7 @@ namespace OmiyaGames
     /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     /// THE SOFTWARE.
     /// </copyright>
-    /// <date>4/21/2015</date>
+    /// <date>5/15/2016</date>
     /// <author>Taro Omiya</author>
     /// <author>andyman</author>
     /// <author>jcx</author>
@@ -49,6 +50,7 @@ namespace OmiyaGames
     /// </summary>
     public class WebLocationChecker : ISingletonScript
     {
+        public const string RemoteDomainListHeader = "Remote Domain List";
         public enum State
         {
             NotUsed = -1,
@@ -57,6 +59,14 @@ namespace OmiyaGames
             DomainMatched,
             DomainDidntMatch
         }
+
+        public enum DownloadedFileType
+        {
+            Text,
+            AcceptedDomainListAssetBundle
+        }
+
+        static readonly string[] AlwaysSplitDomainsBy = new string[] { "\r\n", "\n" };
 
         ///<summary>
         /// If it is a webplayer, then the domain must contain any
@@ -67,21 +77,30 @@ namespace OmiyaGames
         string[] domainMustContain;
 
         ///<summary>
-        /// (optional) or fetch the domain list from this URL
+        /// [optional] The URL to fetch a list of domains
         ///</summary>
-        [Header("Getting Domain List Remotely")]
+        [Header(RemoteDomainListHeader)]
         [SerializeField]
+        [Tooltip("[optional] The URL to fetch a list of domains")]
         string remoteDomainListUrl;
+        /// <summary>
+        /// The file type of this list of domains
+        /// </summary>
+        [SerializeField]
+        [Tooltip("[optional] The file type of this list of domains")]
+        DownloadedFileType remoteListFileType = DownloadedFileType.AcceptedDomainListAssetBundle;
         ///<summary>
-        /// (optional) or fetch the domain list from this URL
+        /// [optional] The list of strings the text list of domains will be split by.
+        /// Note that the text list will already be divided by newlines.
         ///</summary>
         [SerializeField]
-        [Multiline]
-        string[] splitRemoteDomainListUrlBy = new string[] { "\n", "," };
+        [Tooltip("[optional] The list of strings the text list of domains will be split by.\nNote that the text list will already be divided by newlines.")]
+        string[] splitRemoteDomainListUrlBy = new string[] { "," };
         ///<summary>
-        /// (optional) game objects to deactivate while the domain checking is happening
+        /// [Optional] GameObjects to deactivate while the domain checking is happening
         ///</summary>
         [SerializeField]
+        [Tooltip("[Optional] GameObjects to deactivate while the domain checking is happening")]
         GameObject[] waitObjects;
 
         ///<summary>
@@ -101,8 +120,10 @@ namespace OmiyaGames
         State currentState = State.NotUsed;
         string retrievedHostName = null;
         string downloadDomainsUrl = null;
+        string downloadErrorMessage = null;
         string[] downloadedDomainList = null;
-        readonly HashSet<string> allUniqueDomains = new HashSet<string>();
+        string[] cachedSplitString = null;
+        readonly Dictionary<string, Regex> allUniqueDomains = new Dictionary<string, Regex>();
 
         #region Properties
         public State CurrentState
@@ -157,11 +178,32 @@ namespace OmiyaGames
             }
         }
 
-        public HashSet<string> AllUniqueDomains
+        public Dictionary<string, Regex> AllUniqueDomains
         {
             get
             {
                 return allUniqueDomains;
+            }
+        }
+
+        public string[] SplitString
+        {
+            get
+            {
+                if(cachedSplitString == null)
+                {
+                    // Setup variables
+                    List<string> allSplits = new List<string>();
+                    HashSet<string> allUniqueSplits = new HashSet<string>();
+
+                    // Add these two arrays into the hashset
+                    AddString(AlwaysSplitDomainsBy, allSplits, allUniqueSplits);
+                    AddString(splitRemoteDomainListUrlBy, allSplits, allUniqueSplits);
+
+                    // Convert the list into an array
+                    cachedSplitString = allSplits.ToArray();
+                }
+                return cachedSplitString;
             }
         }
         #endregion
@@ -185,130 +227,50 @@ namespace OmiyaGames
             ForceRedirect(new StringBuilder());
         }
 
-        #region Helper Methods
-        void ForceRedirect(StringBuilder buf)
+        #region Helper Static Methods
+        static State GetNewState(StringBuilder buf, Dictionary<string, Regex> allUniqueDomains, out string retrievedHostName)
         {
-            if (string.IsNullOrEmpty(redirectURL) == false)
-            {
-                // Evaluate the javascript
-                Application.ExternalEval(GenerateRedirect(buf));
-            }
-        }
-
-        string GenerateRedirect(StringBuilder buf)
-        {
-            buf.Length = 0;
-            buf.Append("window.top.location='");
-            buf.Append(redirectURL);
-            buf.Append("';");
-            return buf.ToString();
-        }
-
-        IEnumerator DownloadRemoteDomainList(StringBuilder buf, string remoteDomainUrl)
-        {
-            WWW www = new WWW(remoteDomainListUrl);
-            yield return www;
-
-            // Check if there were any errors
-            if (string.IsNullOrEmpty(www.error) == true)
-            {
-                // If none, split the text file we've downloaded, and add it to the list
-                downloadedDomainList = www.text.Split(splitRemoteDomainListUrlBy, StringSplitOptions.RemoveEmptyEntries);
-            }
-        }
-
-        IEnumerator CheckDomainList()
-        {
-            // Update state
-            StringBuilder buf = new StringBuilder();
-            CurrentState = State.InProgress;
-
-            // Deactivate any objects
-            int index = 0;
-            for (; index < waitObjects.Length; ++index)
-            {
-                waitObjects[index].SetActive(false);
-            }
-
-            // Grab a domain list remotely
-            downloadedDomainList = null;
-            downloadDomainsUrl = null;
-            if (string.IsNullOrEmpty(remoteDomainListUrl) == false)
-            {
-                // Grab remote domain list
-                downloadDomainsUrl = GenerateRemoteDomainList(buf);
-                yield return StartCoroutine(DownloadRemoteDomainList(buf, downloadDomainsUrl));
-            }
-
-            // Setup hashset
-            allUniqueDomains.Clear();
-            if (DefaultDomainList != null)
-            {
-                for (index = 0; index < DefaultDomainList.Length; ++index)
-                {
-                    allUniqueDomains.Add(DefaultDomainList[index]);
-                }
-            }
-            if (DownloadedDomainList != null)
-            {
-                for (index = 0; index < DownloadedDomainList.Length; ++index)
-                {
-                    allUniqueDomains.Add(DownloadedDomainList[index]);
-                }
-            }
-
-            // Make sure there's at least one domain we need to check
+            State newState = State.NotUsed;
+            retrievedHostName = null;
             if (allUniqueDomains.Count > 0)
             {
                 // parse the page's address
                 bool isErrorEncountered = false;
+                newState = State.DomainDidntMatch;
                 if (IsHostMatchingListedDomain(allUniqueDomains, out isErrorEncountered, out retrievedHostName) == true)
                 {
                     // Update state
-                    CurrentState = State.DomainMatched;
+                    newState = State.DomainMatched;
                 }
-                else
+                else if (isErrorEncountered == true)
                 {
-                    // Update state
-                    if(isErrorEncountered == true)
-                    {
-                        CurrentState = State.EncounteredError;
-                    }
-                    else
-                    {
-                        CurrentState = State.DomainDidntMatch;
-                    }
-
-                    // Check if we should force redirecting the player
-                    if (forceRedirectIfDomainDoesntMatch == true)
-                    {
-                        ForceRedirect(buf);
-                    }
+                    newState = State.EncounteredError;
                 }
             }
-            else
-            {
-                // Update state
-                CurrentState = State.NotUsed;
-            }
-
-            // Reactivate any objects
-            for (index = 0; index < waitObjects.Length; ++index)
-            {
-                waitObjects[index].SetActive(true);
-            }
+            return newState;
         }
 
-        string GenerateRemoteDomainList(StringBuilder buf)
+        static void PopulateAllUniqueDomains(StringBuilder buf, Dictionary<string, Regex> allUniqueDomains, params string[][] allDomains)
         {
-            buf.Length = 0;
-            buf.Append(remoteDomainListUrl);
-            buf.Append("?r=");
-            buf.Append(UnityEngine.Random.Range(0, int.MaxValue));
-            return buf.ToString();
+            // Setup variables
+            int listIndex = 0, stringIndex = 0;
+
+            // Clear the dictionary
+            allUniqueDomains.Clear();
+
+            // Go through all the domains
+            for (; listIndex < allDomains.Length; ++listIndex)
+            {
+                // Go through all strings in the list
+                for (stringIndex = 0; stringIndex < allDomains[listIndex].Length; ++stringIndex)
+                {
+                    // Add the entry and its regular expression equivalent
+                    allUniqueDomains.Add(allDomains[listIndex][stringIndex], ConvertToWildCardAcceptingRegex(buf, allDomains[listIndex][stringIndex]));
+                }
+            }
         }
 
-        bool IsHostMatchingListedDomain(HashSet<string> domainList, out bool encounteredError, out string retrievedHostName)
+        static bool IsHostMatchingListedDomain(Dictionary<string, Regex> domainList, out bool encounteredError, out string retrievedHostName)
         {
             Uri uri;
             bool isTheCorrectHost = false;
@@ -323,18 +285,200 @@ namespace OmiyaGames
                 retrievedHostName = uri.Host;
 
                 // Check if the scheme isn't file (i.e. local file run on computer)
-                if (uri.Scheme == "file")
-                {
-                    // If this is a file run by a local computer, indicate domain matched
-                    isTheCorrectHost = true;
-                }
-                else
+                isTheCorrectHost = true;
+                if (uri.Scheme != "file")
                 {
                     // Make sure host matches any one of the domains
-                    isTheCorrectHost = domainList.Contains(retrievedHostName);
+                    isTheCorrectHost = false;
+                    foreach (Regex expression in domainList.Values)
+                    {
+                        if (expression.IsMatch(retrievedHostName) == true)
+                        {
+                            isTheCorrectHost = true;
+                            break;
+                        }
+                    }
                 }
             }
             return isTheCorrectHost;
+        }
+
+        static Regex ConvertToWildCardAcceptingRegex(StringBuilder buf, string domainString)
+        {
+            // Reset StringBuilder
+            buf.Length = 0;
+
+            // Add forced start characters
+            buf.Append('^');
+
+            // Escape all Regex Expression
+            domainString = Regex.Escape(domainString);
+
+            // Replace ? and * with equivalent symbols
+            buf.Append(domainString.Replace("\\?", ".").Replace("\\*", ".*"));
+
+            // Add forced end characters
+            buf.Append('$');
+
+            // Create a new Regex
+            return new Regex(buf.ToString(), RegexOptions.IgnoreCase | RegexOptions.Singleline);
+        }
+
+        static string[] ConvertToDomainList(string text, string[] splitBy)
+        {
+            string[] returnDomainList = text.Split(splitBy, StringSplitOptions.RemoveEmptyEntries);
+            for (int index = 0; index < returnDomainList.Length; ++index)
+            {
+                // Trim out any empty spaces in each string
+                returnDomainList[index] = returnDomainList[index].Trim();
+            }
+            return returnDomainList;
+        }
+
+        static string[] ConvertToDomainList(DomainList domainList)
+        {
+            string[] returnDomainList = null;
+            if ((domainList != null) && (domainList.Count > 0))
+            {
+                // Create a new string array
+                returnDomainList = new string[domainList.Count];
+
+                // Copy each element from the domainList
+                for (int index = 0; index < returnDomainList.Length; ++index)
+                {
+                    // Trim out any empty spaces in each string
+                    returnDomainList[index] = domainList[index].Trim();
+                }
+            }
+            return returnDomainList;
+        }
+
+        static bool IsDomainInvalid(State state)
+        {
+            bool returnState = false;
+            switch (state)
+            {
+                case State.EncounteredError:
+                case State.DomainDidntMatch:
+                    returnState = true;
+                    break;
+            }
+            return returnState;
+        }
+
+        static void AddString(string[] toAddArray, List<string> listToAddTo, HashSet<string> setToAddTo)
+        {
+            if (toAddArray != null)
+            {
+                string toAdd;
+                for (int index = 0; index < toAddArray.Length; ++index)
+                {
+                    toAdd = toAddArray[index];
+                    if ((string.IsNullOrEmpty(toAdd) == false) && (setToAddTo.Contains(toAdd) == false))
+                    {
+                        listToAddTo.Add(toAdd);
+                        setToAddTo.Add(toAdd);
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region Helper Local Methods
+        IEnumerator DownloadRemoteDomainList(StringBuilder buf, string remoteDomainUrl)
+        {
+            // Start downloading the remote file (never cache this file)
+            using (WWW www = new WWW(remoteDomainListUrl))
+            {
+                yield return www;
+
+                // Check if there were any errors
+                downloadErrorMessage = www.error;
+                if (string.IsNullOrEmpty(downloadErrorMessage) == true)
+                {
+                    // If none, check what type this downloaded file is
+                    if(remoteListFileType == DownloadedFileType.Text)
+                    {
+                        // If text, split the text file we've downloaded, and add it to the list
+                        downloadedDomainList = ConvertToDomainList(www.text, SplitString);
+                    }
+                    else if(www.assetBundle != null)
+                    {
+                        // If asset bundle, convert it into a list
+                        downloadedDomainList = ConvertToDomainList(Utility.GetDomainList(www.assetBundle));
+                    }
+                }
+            }
+        }
+
+        IEnumerator CheckDomainList()
+        {
+            // Setup variables
+            StringBuilder buf = new StringBuilder();
+            downloadedDomainList = null;
+            downloadDomainsUrl = null;
+            downloadErrorMessage = null;
+
+            // Update state
+            CurrentState = State.InProgress;
+
+            // Deactivate any objects
+            SetWaitObjectActive(false);
+
+            // Grab a domain list remotely
+            if (string.IsNullOrEmpty(remoteDomainListUrl) == false)
+            {
+                // Grab remote domain list
+                downloadDomainsUrl = GenerateRemoteDomainList(buf);
+                yield return StartCoroutine(DownloadRemoteDomainList(buf, downloadDomainsUrl));
+            }
+
+            // Setup hashset
+            PopulateAllUniqueDomains(buf, AllUniqueDomains, DefaultDomainList, DownloadedDomainList);
+
+            // Make sure there's at least one domain we need to check
+            CurrentState = GetNewState(buf, AllUniqueDomains, out retrievedHostName);
+
+            // Reactivate any objects
+            SetWaitObjectActive(true);
+
+            // Check if we should force redirecting the player
+            if ((forceRedirectIfDomainDoesntMatch == true) && (IsDomainInvalid(CurrentState) == true))
+            {
+                ForceRedirect(buf);
+            }
+        }
+
+        void ForceRedirect(StringBuilder buf)
+        {
+            if (string.IsNullOrEmpty(redirectURL) == false)
+            {
+                // Create a redirect javascript command
+                buf.Length = 0;
+                buf.Append("window.top.location='");
+                buf.Append(redirectURL);
+                buf.Append("';");
+
+                // Evaluate the javascript
+                Application.ExternalEval(buf.ToString());
+            }
+        }
+
+        string GenerateRemoteDomainList(StringBuilder buf)
+        {
+            buf.Length = 0;
+            buf.Append(remoteDomainListUrl);
+            buf.Append("?r=");
+            buf.Append(UnityEngine.Random.Range(0, int.MaxValue));
+            return buf.ToString();
+        }
+
+        void SetWaitObjectActive(bool state)
+        {
+            for (int index = 0; index < waitObjects.Length; ++index)
+            {
+                waitObjects[index].SetActive(state);
+            }
         }
         #endregion
     }

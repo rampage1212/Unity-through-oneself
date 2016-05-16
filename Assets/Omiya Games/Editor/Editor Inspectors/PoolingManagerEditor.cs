@@ -8,7 +8,7 @@ namespace OmiyaGames
     /// <copyright file="PoolingManagerEditor.cs" company="Omiya Games">
     /// The MIT License (MIT)
     /// 
-    /// Copyright (c) 2014-2015 Omiya Games
+    /// Copyright (c) 2014-2016 Omiya Games
     /// 
     /// Permission is hereby granted, free of charge, to any person obtaining a copy
     /// of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@ namespace OmiyaGames
             objectsToPreloadList = new ReorderableList(serializedObject, objectsToPreload, true, true, true, true);
             objectsToPreloadList.drawHeaderCallback = DrawObjectsToPreloadListHeader;
             objectsToPreloadList.drawElementCallback = DrawObjectsToPreloadListElement;
+            objectsToPreloadList.elementHeight = AssetUtility.SingleLineHeight(VerticalMargin);
         }
 
         public override void OnInspectorGUI()
